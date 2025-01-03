@@ -12,8 +12,7 @@ class AdminController extends Controller
     {
         $currentPeriod = EnrollmentPeriod::where('is_active', true)->first();
         $enrollmentCount = Enrollment::count();
-        $recentEnrollments = 0;
 
-        return view('admin.index', compact('currentPeriod', 'enrollmentCount', 'recentEnrollments'));
+        return view('admin.index', compact('currentPeriod', 'enrollmentCount'));
     }
 }

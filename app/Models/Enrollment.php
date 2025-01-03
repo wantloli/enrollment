@@ -19,8 +19,9 @@ class Enrollment extends Model
         'parent_information_id',
         'special_need_id',
         'returning_learner_id',
-        'learners_senior_id',
+        'learner_senior_id',
         'distance_learning_preference',
+        'status',
     ];
 
     public function personalInformation()

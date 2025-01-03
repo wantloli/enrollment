@@ -31,7 +31,7 @@
                 </div>
 
                 <!-- Recent Enrollments Table -->
-                <div class="mt-8">
+                {{-- <div class="mt-8">
                     <h2 class="text-xl font-semibold mb-4">Recent Enrollments</h2>
                     <div class="overflow-x-auto">
                         <table class="min-w-full divide-y divide-gray-200">
@@ -69,13 +69,13 @@
                             </tbody>
                         </table>
                     </div>
-                </div>
+                </div> --}}
             </div>
         </div>
     </div>
 
     <!-- Edit Enrollment Period Modal -->
-    <div id="editModal" class="fixed inset-0 bg-gray-600 bg-opacity-50 overflow-y-auto h-full w-full hidden">
+    {{-- <div id="editModal" class="fixed inset-0 bg-gray-600 bg-opacity-50 overflow-y-auto h-full w-full hidden">
         <div class="relative top-20 mx-auto p-5 border w-96 shadow-lg rounded-md bg-white">
             <div class="mt-3 text-center">
                 <h3 class="text-lg leading-6 font-medium text-gray-900">Edit Enrollment Period</h3>
@@ -106,7 +106,7 @@
                 </div>
             </div>
         </div>
-    </div>
+    </div> --}}
 
     <script>
         function openModal() {

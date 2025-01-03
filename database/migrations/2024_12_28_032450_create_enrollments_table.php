@@ -21,8 +21,9 @@ return new class extends Migration
             $table->foreignId('parent_information_id')->nullable()->constrained('parent_information')->nullOnDelete();
             $table->foreignId('special_need_id')->nullable()->constrained('special_needs')->nullOnDelete();
             $table->foreignId('returning_learner_id')->nullable()->constrained('returning_learners')->nullOnDelete();
-            $table->foreignId('learners_senior_id')->nullable()->constrained('learner_seniors')->nullOnDelete();
+            $table->foreignId('learner_senior_id')->nullable()->constrained('learner_seniors')->nullOnDelete();
             $table->string('distance_learning_preference')->nullable();
+            $table->string('status')->default('pending');
             $table->timestamps();
         });
     }

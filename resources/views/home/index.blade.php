@@ -42,7 +42,7 @@
     <section class="bg-gray-50 py-16">
         <div class="container mx-auto px-6">
             <h2 class="text-3xl font-bold text-center mb-12">Enrollment Process</h2>
-            <div class="grid md:grid-cols-4 gap-8">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
                 <div class="text-center">
                     <div
                         class="bg-blue-800 text-white w-12 h-12 rounded-full flex items-center justify-center mx-auto mb-4 text-xl font-bold">
@@ -61,13 +61,6 @@
                     <div
                         class="bg-blue-800 text-white w-12 h-12 rounded-full flex items-center justify-center mx-auto mb-4 text-xl font-bold">
                         3</div>
-                    <h3 class="font-bold mb-2">Pay Fees</h3>
-                    <p class="text-gray-600">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
-                </div>
-                <div class="text-center">
-                    <div
-                        class="bg-blue-800 text-white w-12 h-12 rounded-full flex items-center justify-center mx-auto mb-4 text-xl font-bold">
-                        4</div>
                     <h3 class="font-bold mb-2">Confirmation</h3>
                     <p class="text-gray-600">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
                 </div>

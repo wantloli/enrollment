@@ -139,7 +139,12 @@
                 age--;
             }
 
-            ageInput.value = age;
+            if (age < 10 || age < 0) {
+                ageInput.value = '';
+                showError(ageInput, 'Age must be at least 10 and not negative');
+            } else {
+                ageInput.value = age;
+            }
         } else {
             ageInput.value = '';
         }

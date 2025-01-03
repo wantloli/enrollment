@@ -5,6 +5,8 @@ use App\Http\Controllers\FormController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\EnrollmentPeriodController;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\EnrollmentController;
+use App\Http\Controllers\TeacherController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', [HomeController::class, 'index'])->name('home.index');
@@ -18,11 +20,20 @@ Route::put('/enrollment-period/{enrollmentPeriod}', [EnrollmentPeriodController:
 
 Route::middleware('guest')->group(function () {
     Route::get('/login', [AuthController::class, 'showLoginForm'])->name('auth.showLoginForm');
-    Route::post('/login', [AuthController::class, 'login'])->name('auth.login');
+    Route::post('/login', [AuthController::class, 'login'])->name('login');
 });
 
-Route::get('/dashboard', [AdminController::class, 'index'])->name('admin.index');
+Route::middleware('auth')->group(function () {
+    Route::get('/dashboard', [AdminController::class, 'index'])->name('admin.index');
+
+    Route::get('/enrollments', [EnrollmentController::class, 'index'])->name('enrollments.index');
+
+    Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
+});
 
 Route::fallback(function () {
     return redirect()->route('home.index');
 });
+
+Route::resource('/teachers', TeacherController::class)->except('show');
+Route::get('/teachers/{teacher}/account/create', [TeacherController::class, 'createAccount'])->name('teachers.account.create');

@@ -62,7 +62,11 @@
     }
 
     function validatePersonalInfo() {
-        // Add specific validations for personal information
+        const ageInput = document.getElementById('age');
+        if (ageInput && (ageInput.value < 10 || ageInput.value < 0)) {
+            showError(ageInput, 'Age must be at least 10 and not negative');
+            return false;
+        }
         return true;
     }
 
@@ -92,8 +96,11 @@
     }
 
     function validateName(input) {
+        if (!input || !input.value.trim()) {
+            return true;
+        }
         const namePattern = /^[a-zA-Z\s\-]+$/;
-        if (input && !namePattern.test(input.value)) {
+        if (!namePattern.test(input.value)) {
             showError(input, 'Name must not contain symbols or numbers, except for hyphen (-)');
             return false;
         }

@@ -103,9 +103,11 @@
                                 <label for="country" class="block text-sm font-medium text-gray-700">Country</label>
                                 <select id="country" name="address[country]" required
                                     class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 p-2">
-                                    <option selected disabled>Select Country</option>
+                                    <option value="Philippines" selected>Philippines</option>
                                     @foreach ($countries as $country)
-                                        <option value="{{ $country }}">{{ $country }}</option>
+                                        @if ($country != 'Philippines')
+                                            <option value="{{ $country }}">{{ $country }}</option>
+                                        @endif
                                     @endforeach
                                 </select>
                             </div>

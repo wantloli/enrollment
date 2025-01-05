@@ -249,14 +249,25 @@ class FormController extends Controller
 
                 'distance_learning_preference' => 'required|string|max:255',
 
-                //address fields
-                'address.house_no' => 'required|string|max:255',
-                'address.street_name' => 'required|string|max:255',
-                'address.province' => 'required|string|max:255',
-                'address.municipality' => 'required|string|max:255',
-                'address.barangay' => 'required|string|max:255',
-                'address.country' => 'required|string|max:255',
-                'address.zip_code' => 'required|string|max:255',
+                // Home address fields
+                'home_address.house_no' => 'required|string|max:255',
+                'home_address.street_name' => 'required|string|max:255',
+                'home_address.province' => 'required|string|max:255',
+                'home_address.municipality' => 'required|string|max:255',
+                'home_address.barangay' => 'required|string|max:255',
+                'home_address.country' => 'required|string|max:255',
+                'home_address.zip_code' => 'required|string|max:255',
+
+                // Current address fields
+                'current_address.house_no' => 'required_unless:same_as_home,1|string|max:255',
+                'current_address.street_name' => 'required_unless:same_as_home,1|string|max:255',
+                'current_address.province' => 'required_unless:same_as_home,1|string|max:255',
+                'current_address.municipality' => 'required_unless:same_as_home,1|string|max:255',
+                'current_address.barangay' => 'required_unless:same_as_home,1|string|max:255',
+                'current_address.country' => 'required_unless:same_as_home,1|string|max:255',
+                'current_address.zip_code' => 'required_unless:same_as_home,1|string|max:255',
+
+                'same_as_home' => 'boolean',
 
                 //parent information fields
                 'father_last_name' => 'required|string|max:255',
@@ -301,13 +312,20 @@ class FormController extends Controller
                 'learners_reference_no',
                 'grade_to_enroll',
                 'distance_learning_preference',
-                'address.house_no',
-                'address.street_name',
-                'address.province',
-                'address.municipality',
-                'address.barangay',
-                'address.zip_code',
-                'address.country',
+                'home_address.house_no',
+                'home_address.street_name',
+                'home_address.province',
+                'home_address.municipality',
+                'home_address.barangay',
+                'home_address.zip_code',
+                'home_address.country',
+                'current_address.house_no',
+                'current_address.street_name',
+                'current_address.province',
+                'current_address.municipality',
+                'current_address.barangay',
+                'current_address.zip_code',
+                'current_address.country',
                 'father_last_name',
                 'father_first_name',
                 'father_middle_name',
@@ -335,13 +353,23 @@ class FormController extends Controller
                 'requirements.grade_10_card'
             ]));
 
-            $addressData = $validatedData['address'] ?? [];
-            Log::info('Address data extracted.', ['addressData' => $addressData]);
+            // Create home address
+            $homeAddress = Address::create($validatedData['home_address']);
+            Log::info('Home address created.', ['homeAddress' => $homeAddress]);
 
-            $address = Address::create($addressData);
-            Log::info('Address created.', ['address' => $address]);
+            // Handle current address based on same_as_home checkbox
+            if (!empty($validatedData['same_as_home'])) {
+                $currentAddress = $homeAddress;
+            } else {
+                $currentAddress = Address::create($validatedData['current_address']);
+            }
+            Log::info('Current address processed.', ['currentAddress' => $currentAddress]);
 
-            $personalInformationData['address_id'] = $address->id;
+            // Add both address IDs to the enrollment data
+            $validatedData['home_address_id'] = $homeAddress->id;
+            $validatedData['current_address_id'] = $currentAddress->id;
+
+            $personalInformationData['address_id'] = $homeAddress->id;
             $personalInformation = PersonalInformation::create($personalInformationData);
             Log::info('Personal information created.', ['personalInformation' => $personalInformation]);
 
@@ -393,7 +421,8 @@ class FormController extends Controller
                 ];
             }
 
-            $validatedData['address_id'] = $address->id;
+            $validatedData['home_address_id'] = $homeAddress->id;
+            $validatedData['current_address_id'] = $currentAddress->id;
             $validatedData['personal_information_id'] = $personalInformation->id;
             $validatedData['parent_information_id'] = $parentInformation->id;
             $validatedData['special_need_id'] = $specialNeed->id;

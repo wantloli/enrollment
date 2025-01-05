@@ -21,4 +21,9 @@ class Teacher extends Model
         'middle_name',
         'email',
     ];
+
+    public function user()
+    {
+        return $this->hasOne(User::class, 'email', 'email');
+    }
 }

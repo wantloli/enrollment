@@ -48,6 +48,10 @@
                                 </th>
                                 <th
                                     class="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
+                                    Unique Code
+                                </th>
+                                <th
+                                    class="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
                                     Actions
                                 </th>
                             </tr>
@@ -68,15 +72,27 @@
                                         <p class="text-gray-900 whitespace-no-wrap">{{ $teacher->email }}</p>
                                     </td>
                                     <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
+                                        <p class="text-gray-900 whitespace-no-wrap">
+                                            @if ($teacher->user && $teacher->user->unique_code)
+                                                {{ $teacher->user->unique_code }}
+                                            @else
+                                                <span class="text-gray-500 italic">No unique code</span>
+                                            @endif
+                                        </p>
+                                    </td>
+                                    <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
                                         <a href="{{ route('teachers.edit', $teacher->id) }}"
                                             class="text-blue-500">Edit</a>
                                         <button onclick="openModal({{ $teacher->id }})"
                                             class="text-red-500 ml-2">Delete</button>
-                                        <form method="GET"
-                                            action="{{ route('teachers.account.create', $teacher->id) }}"
-                                            class="inline-block">
-                                            <button type="submit" class="text-green-500 ml-2">Create Account</button>
-                                        </form>
+                                        @if (!$teacher->user)
+                                            <form method="GET"
+                                                action="{{ route('teachers.account.create', $teacher->id) }}"
+                                                class="inline-block">
+                                                <button type="submit" class="text-green-500 ml-2">Create
+                                                    Account</button>
+                                            </form>
+                                        @endif
                                     </td>
                                 </tr>
                             @endforeach

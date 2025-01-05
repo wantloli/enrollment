@@ -27,13 +27,11 @@ Route::middleware('auth')->group(function () {
     Route::get('/dashboard', [AdminController::class, 'index'])->name('admin.index');
 
     Route::get('/enrollments', [EnrollmentController::class, 'index'])->name('enrollments.index');
-
+    Route::get('/teachers/{teacher}/account/create', [TeacherController::class, 'createAccount'])->name('teachers.account.create');
+    Route::resource('/teachers', TeacherController::class)->except('show');
     Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 });
 
 Route::fallback(function () {
     return redirect()->route('home.index');
 });
-
-Route::resource('/teachers', TeacherController::class)->except('show');
-Route::get('/teachers/{teacher}/account/create', [TeacherController::class, 'createAccount'])->name('teachers.account.create');

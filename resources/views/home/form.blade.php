@@ -49,7 +49,6 @@
                     </div>
                 @endif
 
-
                 <form id="stepperForm" method="POST" action="{{ route('form.store') }}" enctype="multipart/form-data"
                     class="space-y-6">
                     @csrf
@@ -69,61 +68,137 @@
                     <!-- Step 5: Address Information -->
                     <div class="step hidden" id="step5">
                         <h2 class="text-2xl font-bold text-gray-900 mb-6">Address Information</h2>
-                        <div class="grid grid-cols-1 gap-6 md:grid-cols-2">
-                            <div>
-                                <label for="house_no" class="block text-sm font-medium text-gray-700">House
-                                    Number</label>
-                                <input type="text" id="house_no" name="address[house_no]" required
-                                    class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 p-2"
-                                    oninput="this.value = this.value.toUpperCase()">
-                            </div>
-                            <div>
-                                <label for="street_name" class="block text-sm font-medium text-gray-700">Street
-                                    Name</label>
-                                <input type="text" id="street_name" name="address[street_name]" required
-                                    class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 p-2"
-                                    oninput="this.value = this.value.toUpperCase()">
-                            </div>
-                            <div>
-                                <label for="province" class="block text-sm font-medium text-gray-700">Province</label>
-                                <select id="province" name="address[province]" required
-                                    class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 p-2">
-                                    <option selected disabled>Select Province</option>
-                                </select>
-                            </div>
-                            <div>
-                                <label for="municipality"
-                                    class="block text-sm font-medium text-gray-700">City/Municipality</label>
-                                <select id="municipality" name="address[municipality]" required
-                                    class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 p-2">
-                                    <option selected disabled>Select City / Municipality</option>
-                                </select>
-                            </div>
-                            <div>
-                                <label for="country" class="block text-sm font-medium text-gray-700">Country</label>
-                                <select id="country" name="address[country]" required
-                                    class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 p-2">
-                                    <option value="Philippines" selected>Philippines</option>
-                                    @foreach ($countries as $country)
-                                        @if ($country != 'Philippines')
-                                            <option value="{{ $country }}">{{ $country }}</option>
-                                        @endif
-                                    @endforeach
-                                </select>
-                            </div>
-                            <div>
-                                <label for="barangay" class="block text-sm font-medium text-gray-700">Barangay</label>
-                                <input type="text" id="barangay" name="address[barangay]" required
-                                    class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 p-2"
-                                    oninput="this.value = this.value.toUpperCase()">
-                            </div>
-                            <div>
-                                <label for="zip_code" class="block text-sm font-medium text-gray-700">Zip Code</label>
-                                <input type="text" id="zip_code" name="address[zip_code]" required
-                                    class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 p-2"
-                                    oninput="this.value = this.value.toUpperCase()">
+
+                        <!-- Home Address -->
+                        <div class="mb-8">
+                            <h3 class="text-lg font-semibold text-gray-800 mb-4">Home Address</h3>
+                            <div class="grid grid-cols-1 gap-6 md:grid-cols-2">
+                                <div>
+                                    <label for="home_house_no" class="block text-sm font-medium text-gray-700">House
+                                        Number</label>
+                                    <input type="text" id="home_house_no" name="home_address[house_no]" required
+                                        class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 p-2"
+                                        oninput="this.value = this.value.toUpperCase()">
+                                </div>
+                                <div>
+                                    <label for="home_street_name" class="block text-sm font-medium text-gray-700">Street
+                                        Name</label>
+                                    <input type="text" id="home_street_name" name="home_address[street_name]"
+                                        required
+                                        class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 p-2"
+                                        oninput="this.value = this.value.toUpperCase()">
+                                </div>
+                                <div>
+                                    <label for="home_province"
+                                        class="block text-sm font-medium text-gray-700">Province</label>
+                                    <select id="home_province" name="home_address[province]" required
+                                        class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 p-2">
+                                        <option selected disabled>Select Province</option>
+                                    </select>
+                                </div>
+                                <div>
+                                    <label for="home_municipality"
+                                        class="block text-sm font-medium text-gray-700">City/Municipality</label>
+                                    <select id="home_municipality" name="home_address[municipality]" required
+                                        class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 p-2">
+                                        <option selected disabled>Select City / Municipality</option>
+                                    </select>
+                                </div>
+                                <div>
+                                    <label for="home_country"
+                                        class="block text-sm font-medium text-gray-700">Country</label>
+                                    <input type="text" id="home_country" name="home_address[country]"
+                                        value="PHILIPPINES" readonly
+                                        class="mt-1 block w-full rounded-md border-gray-300 bg-gray-100 shadow-sm focus:border-blue-500 focus:ring-blue-500 p-2">
+                                </div>
+                                <div>
+                                    <label for="home_barangay"
+                                        class="block text-sm font-medium text-gray-700">Barangay</label>
+                                    <input type="text" id="home_barangay" name="home_address[barangay]" required
+                                        class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 p-2"
+                                        oninput="this.value = this.value.toUpperCase()">
+                                </div>
+                                <div>
+                                    <label for="home_zip_code" class="block text-sm font-medium text-gray-700">Zip
+                                        Code</label>
+                                    <input type="text" id="home_zip_code" name="home_address[zip_code]" required
+                                        class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 p-2"
+                                        oninput="this.value = this.value.toUpperCase()">
+                                </div>
                             </div>
                         </div>
+
+                        <!-- Current Address -->
+                        <div class="mb-4">
+                            <div class="flex items-center">
+                                <input type="checkbox" id="same_as_home" name="same_as_home" value="1"
+                                    class="rounded border-gray-300 text-blue-600 shadow-sm focus:border-blue-500 focus:ring-blue-500">
+                                <label for="same_as_home" class="ml-2 block text-sm text-gray-700">Same as Home
+                                    Address</label>
+                            </div>
+                        </div>
+
+                        <div id="current_address_section">
+                            <h3 class="text-lg font-semibold text-gray-800 mb-4">Current Address</h3>
+                            <div class="grid grid-cols-1 gap-6 md:grid-cols-2">
+                                <div>
+                                    <label for="current_house_no" class="block text-sm font-medium text-gray-700">House
+                                        Number</label>
+                                    <input type="text" id="current_house_no" name="current_address[house_no]"
+                                        required
+                                        class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 p-2"
+                                        oninput="this.value = this.value.toUpperCase()">
+                                </div>
+                                <div>
+                                    <label for="current_street_name"
+                                        class="block text-sm font-medium text-gray-700">Street Name</label>
+                                    <input type="text" id="current_street_name" name="current_address[street_name]"
+                                        required
+                                        class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 p-2"
+                                        oninput="this.value = this.value.toUpperCase()">
+                                </div>
+                                <div>
+                                    <label for="current_province"
+                                        class="block text-sm font-medium text-gray-700">Province</label>
+                                    <select id="current_province" name="current_address[province]" required
+                                        class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 p-2">
+                                        <option selected disabled>Select Province</option>
+                                    </select>
+                                </div>
+                                <div>
+                                    <label for="current_municipality"
+                                        class="block text-sm font-medium text-gray-700">City/Municipality</label>
+                                    <select id="current_municipality" name="current_address[municipality]" required
+                                        class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 p-2">
+                                        <option selected disabled>Select City / Municipality</option>
+                                    </select>
+                                </div>
+                                <div>
+                                    <label for="current_country"
+                                        class="block text-sm font-medium text-gray-700">Country</label>
+                                    <input type="text" id="current_country" name="current_address[country]"
+                                        value="PHILIPPINES" readonly
+                                        class="mt-1 block w-full rounded-md border-gray-300 bg-gray-100 shadow-sm focus:border-blue-500 focus:ring-blue-500 p-2">
+                                </div>
+                                <div>
+                                    <label for="current_barangay"
+                                        class="block text-sm font-medium text-gray-700">Barangay</label>
+                                    <input type="text" id="current_barangay" name="current_address[barangay]"
+                                        required
+                                        class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 p-2"
+                                        oninput="this.value = this.value.toUpperCase()">
+                                </div>
+                                <div>
+                                    <label for="current_zip_code" class="block text-sm font-medium text-gray-700">Zip
+                                        Code</label>
+                                    <input type="text" id="current_zip_code" name="current_address[zip_code]"
+                                        required
+                                        class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 p-2"
+                                        oninput="this.value = this.value.toUpperCase()">
+                                </div>
+                            </div>
+                        </div>
+
                         <div class="mt-8 flex justify-between">
                             <button type="button" onclick="prevStep(5)"
                                 class="inline-flex items-center px-4 py-2 border border-gray-300 text-base font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50">
@@ -269,7 +344,6 @@
             }
         }
 
-
         // Error handling functions
         function showError(element, message) {
             const errorDiv = element.parentElement.querySelector('.error-message');
@@ -358,14 +432,47 @@
             // Initialize city selection
             if (typeof City !== 'undefined') {
                 var city = new City();
-                city.showProvinces("#province");
+                city.showProvinces("#home_province");
+                city.showProvinces("#current_province");
 
                 // Handle province change
-                document.getElementById('province').addEventListener('change', function() {
+                document.getElementById('home_province').addEventListener('change', function() {
                     var selectedProvince = this.value;
-                    city.showCities(selectedProvince, "#municipality");
+                    city.showCities(selectedProvince, "#home_municipality");
+                });
+
+                document.getElementById('current_province').addEventListener('change', function() {
+                    var selectedProvince = this.value;
+                    city.showCities(selectedProvince, "#current_municipality");
                 });
             }
         };
+
+        // Update the existing same_as_home event listener
+        document.getElementById('same_as_home').addEventListener('change', function() {
+            const currentAddressSection = document.getElementById('current_address_section');
+            const currentAddressInputs = currentAddressSection.querySelectorAll('input, select');
+
+            if (this.checked) {
+                currentAddressSection.style.display = 'none';
+                // Copy home address values to current address fields
+                const fields = ['house_no', 'street_name', 'province', 'municipality', 'barangay', 'country',
+                    'zip_code'
+                ];
+                fields.forEach(field => {
+                    const currentField = document.querySelector(`[name="current_address[${field}]"]`);
+                    const homeField = document.querySelector(`[name="home_address[${field}]"]`);
+                    currentField.value = homeField.value;
+                    currentField.required = false;
+                });
+            } else {
+                currentAddressSection.style.display = 'block';
+                currentAddressInputs.forEach(input => {
+                    if (input.hasAttribute('required-if-shown')) {
+                        input.required = true;
+                    }
+                });
+            }
+        });
     </script>
 </x-layout>

@@ -15,7 +15,8 @@ class Enrollment extends Model
         'learners_reference_no',
         'grade_to_enroll',
         'personal_information_id',
-        'address_id',
+        'current_address_id',
+        'home_address_id',
         'parent_information_id',
         'special_need_id',
         'returning_learner_id',
@@ -57,5 +58,15 @@ class Enrollment extends Model
     public function requirements()
     {
         return $this->belongsToMany(Requirement::class, 'enrollment_requirement');
+    }
+
+    public function homeAddress()
+    {
+        return $this->belongsTo(Address::class, 'home_address_id');
+    }
+
+    public function currentAddress()
+    {
+        return $this->belongsTo(Address::class, 'current_address_id');
     }
 }

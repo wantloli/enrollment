@@ -17,7 +17,9 @@ return new class extends Migration
             $table->string('learners_reference_no');
             $table->string('grade_to_enroll')->nullable();
             $table->foreignId('personal_information_id')->constrained('personal_information')->cascadeOnDelete();
-            $table->foreignId('address_id')->nullable()->constrained('addresses')->nullOnDelete();
+            $table->foreignId('home_address_id')->nullable()->constrained('addresses')->nullOnDelete();
+            $table->unsignedBigInteger('current_address_id')->nullable()->after('home_address_id');
+            $table->foreign('current_address_id')->references('id')->on('addresses')->nullOnDelete();
             $table->foreignId('parent_information_id')->nullable()->constrained('parent_information')->nullOnDelete();
             $table->foreignId('special_need_id')->nullable()->constrained('special_needs')->nullOnDelete();
             $table->foreignId('returning_learner_id')->nullable()->constrained('returning_learners')->nullOnDelete();

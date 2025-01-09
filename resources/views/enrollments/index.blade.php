@@ -57,7 +57,8 @@
                 </thead>
                 <tbody class="bg-white divide-y divide-gray-200">
                     @forelse ($enrollments as $enrollment)
-                        <tr class="hover:bg-gray-50">
+                        <tr class="hover:bg-gray-50 cursor-pointer"
+                            onclick="window.location='{{ route('enrollments.show', $enrollment->id) }}'">
                             <td class="px-6 py-4 whitespace-nowrap">{{ $enrollment->personalInformation->last_name }}
                             </td>
                             <td class="px-6 py-4 whitespace-nowrap">{{ $enrollment->personalInformation->first_name }}

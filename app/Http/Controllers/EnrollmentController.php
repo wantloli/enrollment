@@ -61,7 +61,7 @@ class EnrollmentController extends Controller
      */
     public function show(Enrollment $enrollment)
     {
-        //
+        return view('enrollments.show', compact('enrollment'));
     }
 
     /**

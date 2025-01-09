@@ -249,39 +249,7 @@
                     @include('home.partials.returning-learner')
 
                     <!-- Step 10: Learner Senior Information -->
-                    <div class="step hidden" id="step10">
-                        <h2 class="text-2xl font-bold text-gray-900 mb-6">Learner Senior Information</h2>
-                        <div class="space-y-6">
-                            <div>
-                                <label for="semester" class="block text-sm font-medium text-gray-700">Semester</label>
-                                <input type="text" id="semester" name="learner_senior[semester]" required
-                                    class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500"
-                                    oninput="this.value = this.value.toUpperCase()">
-                            </div>
-                            <div>
-                                <label for="track" class="block text-sm font-medium text-gray-700">Track</label>
-                                <input type="text" id="track" name="learner_senior[track]" required
-                                    class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500"
-                                    oninput="this.value = this.value.toUpperCase()">
-                            </div>
-                            <div>
-                                <label for="strand" class="block text-sm font-medium text-gray-700">Strand</label>
-                                <input type="text" id="strand" name="learner_senior[strand]" required
-                                    class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500"
-                                    oninput="this.value = this.value.toUpperCase()">
-                            </div>
-                        </div>
-                        <div class="mt-8 flex justify-between">
-                            <button type="button" onclick="prevStep(10)"
-                                class="inline-flex items-center px-4 py-2 border border-gray-300 text-base font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50">
-                                ← Back
-                            </button>
-                            <button type="button" onclick="nextStep(10)"
-                                class="inline-flex items-center px-4 py-2 border border-transparent text-base font-medium rounded-md shadow-sm text-white bg-blue-600 hover:bg-blue-700">
-                                Continue →
-                            </button>
-                        </div>
-                    </div>
+                    @include('home.partials.learner-senior-information')
 
                     <!-- Step 11: Upload Requirements -->
                     <div class="step hidden" id="step11">

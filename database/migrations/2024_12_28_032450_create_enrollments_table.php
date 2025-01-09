@@ -26,6 +26,7 @@ return new class extends Migration
             $table->foreignId('learner_senior_id')->nullable()->constrained('learner_seniors')->nullOnDelete();
             $table->string('distance_learning_preference')->nullable();
             $table->string('status')->default('pending');
+            $table->timestamp('is_verified')->nullable();
             $table->timestamps();
         });
     }

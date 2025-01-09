@@ -40,7 +40,7 @@ return new class extends Migration
         });
 
         DB::table('users')->insert([
-            'unique_code' => '000',
+            'unique_code' => 'admin',
             'email' => 'admin',
             'password' => Hash::make('admin'),
             'role' => 'admin',

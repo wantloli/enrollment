@@ -35,6 +35,13 @@
 
         <!-- Table Section -->
         <div class="bg-white rounded-lg shadow-md overflow-x-auto">
+
+            <p class="text-sm text-gray-600 p-4 flex gap-1"><span><svg xmlns="http://www.w3.org/2000/svg" fill="none"
+                        viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
+                        <path stroke-linecap="round" stroke-linejoin="round"
+                            d="M12 9v3.75m9-.75a9 9 0 1 1-18 0 9 9 0 0 1 18 0Zm-9 3.75h.008v.008H12v-.008Z" />
+                    </svg>
+                </span>Click on the items inside the table to see the details.</p>
             <table class="min-w-full divide-y divide-gray-200">
                 <thead class="bg-gray-50">
                     <tr>
@@ -53,6 +60,9 @@
                             Middle Name</th>
                         <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                             School Year</th>
+                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                            Status
+                        </th>
                     </tr>
                 </thead>
                 <tbody class="bg-white divide-y divide-gray-200">
@@ -66,10 +76,11 @@
                             <td class="px-6 py-4 whitespace-nowrap">{{ $enrollment->personalInformation->middle_name }}
                             </td>
                             <td class="px-6 py-4 whitespace-nowrap">{{ $enrollment->school_year }}</td>
+                            <td class="px-6 py-4 whitespace-nowrap">{{ $enrollment->status }}</td>
                         </tr>
                     @empty
                         <tr>
-                            <td colspan="4" class="px-6 py-4 text-center text-gray-500">
+                            <td colspan="5" class="px-6 py-4 text-center text-gray-500">
                                 No enrollments found
                             </td>
                         </tr>

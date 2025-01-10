@@ -8,13 +8,13 @@
         </div>
         <div>
             <label for="father_last_name" class="block text-sm font-medium text-gray-700">Father's Last Name</label>
-            <input type="text" id="father_last_name" name="father_last_name" required
+            <input type="text" id="father_last_name" name="father_last_name"
                 class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500"
                 oninput="this.value = this.value.toUpperCase()">
         </div>
         <div>
             <label for="father_first_name" class="block text-sm font-medium text-gray-700">Father's First Name</label>
-            <input type="text" id="father_first_name" name="father_first_name" required
+            <input type="text" id="father_first_name" name="father_first_name"
                 class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500"
                 oninput="this.value = this.value.toUpperCase()">
         </div>
@@ -38,13 +38,13 @@
         </div>
         <div>
             <label for="mother_last_name" class="block text-sm font-medium text-gray-700">Mother's Last Name</label>
-            <input type="text" id="mother_last_name" name="mother_last_name" required
+            <input type="text" id="mother_last_name" name="mother_last_name"
                 class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500"
                 oninput="this.value = this.value.toUpperCase()">
         </div>
         <div>
             <label for="mother_first_name" class="block text-sm font-medium text-gray-700">Mother's First Name</label>
-            <input type="text" id="mother_first_name" name="mother_first_name" required
+            <input type="text" id="mother_first_name" name="mother_first_name"
                 class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500"
                 oninput="this.value = this.value.toUpperCase()">
         </div>
@@ -71,28 +71,28 @@
                 Name</label>
             <input type="text" id="legal_last_name" name="legal_last_name"
                 class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500"
-                oninput="this.value = this.value.toUpperCase()">
+                oninput="this.value = this.value.toUpperCase()" required>
         </div>
         <div>
             <label for="legal_first_name" class="block text-sm font-medium text-gray-700">Legal Guardian's First
                 Name</label>
             <input type="text" id="legal_first_name" name="legal_first_name"
                 class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500"
-                oninput="this.value = this.value.toUpperCase()">
+                oninput="this.value = this.value.toUpperCase()" required>
         </div>
         <div>
             <label for="legal_middle_name" class="block text-sm font-medium text-gray-700">Legal Guardian's Middle
                 Name</label>
             <input type="text" id="legal_middle_name" name="legal_middle_name"
                 class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500"
-                oninput="this.value = this.value.toUpperCase()">
+                oninput="this.value = this.value.toUpperCase()" required>
         </div>
         <div>
             <label for="legal_contact_number" class="block text-sm font-medium text-gray-700">Legal Guardian's Contact
                 Number</label>
             <input type="tel" id="legal_contact_number" name="legal_contact_number"
                 class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500"
-                oninput="this.value = this.value.toUpperCase()">
+                oninput="this.value = this.value.toUpperCase()" required>
         </div>
     </div>
 

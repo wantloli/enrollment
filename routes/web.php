@@ -32,6 +32,14 @@ Route::middleware(['auth', 'role:teacher'])->group(function () {
 });
 Route::middleware(['auth', 'role:admin,teacher'])->group(function () {
     Route::get('/dashboard', [AdminController::class, 'index'])->name('admin.index');
+
+    // Export route should come before other enrollment routes with parameters
+    Route::get('/enrollments/export', [EnrollmentController::class, 'export'])->name('enrollments.export');
+    Route::get('/enrollments/pending', [EnrollmentController::class, 'pending'])->name('enrollments.pending');
+    Route::get('/enrollments/reviewed', [EnrollmentController::class, 'reviewed'])->name('enrollments.reviewed');
+    Route::get('/enrollments/enrolled', [EnrollmentController::class, 'enrolled'])->name('enrollments.enrolled');
+
+    // General enrollment routes should come after specific ones
     Route::get('/enrollments', [EnrollmentController::class, 'index'])->name('enrollments.index');
     Route::get('/enrollments/{enrollment}', [EnrollmentController::class, 'show'])->name('enrollments.show');
     Route::get('/enrollments/{enrollment}/edit', [EnrollmentController::class, 'edit'])->name('enrollments.edit');

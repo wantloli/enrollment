@@ -15,14 +15,25 @@
             <div>
                 <label for="grade_level" class="block text-sm font-medium text-gray-700">Grade
                     Level</label>
-                <input type="text" id="grade_level" name="returning_learner[grade_level]"
+                <select id="grade_level" name="returning_learner[grade_level]"
                     class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500">
+                    <option value="">Select Grade Level</option>
+                    @foreach (range(11, 12) as $grade)
+                        <option value="{{ $grade }}">Grade {{ $grade }}</option>
+                    @endforeach
+                </select>
             </div>
             <div>
                 <label for="school_year" class="block text-sm font-medium text-gray-700">School
                     Year</label>
-                <input type="text" id="school_year" name="returning_learner[school_year]"
+                <select id="school_year" name="returning_learner[school_year]"
                     class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500">
+                    <option value="">Select School Year</option>
+                    @foreach (range(date('Y') - 8, date('Y')) as $year)
+                        <option value="{{ $year }}-{{ $year + 1 }}">
+                            {{ $year }}-{{ $year + 1 }}</option>
+                    @endforeach
+                </select>
             </div>
             <div>
                 <label for="school" class="block text-sm font-medium text-gray-700">School</label>

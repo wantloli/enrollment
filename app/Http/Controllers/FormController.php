@@ -53,7 +53,9 @@ class FormController extends Controller
                 'mother_tongue' => 'required|string|max:255',
                 'four_ps_household_number' => 'nullable|string|max:255',
 
-                'distance_learning_preference' => 'required|string|max:255',
+                // Update the validation rule for distance_learning_preference
+                'distance_learning_preference' => 'required|array|min:1',
+                'distance_learning_preference.*' => 'required|string|in:modular,online,blended',
 
                 // Home address fields
                 'home_address.house_no' => 'required|string|max:255',
@@ -90,10 +92,12 @@ class FormController extends Controller
                 'legal_contact_number' => 'nullable|string|max:255',
 
                 //special needs fields
-                'special_needs.description' => 'nullable|string|max:255',
-                'special_needs.with_diagnosis' => 'nullable|string|max:255',
-                'special_needs.with_manifestations' => 'nullable|string|max:255',
-                'special_needs.is_have_pwd_id' => 'boolean',
+                'has_special_needs' => 'required|boolean',
+                'special_needs.type' => 'required_if:has_special_needs,1|array',
+                'special_needs.type.*' => 'string|in:adhd,asd,cp,ebd,hi,id,ld,md,oph,sld,shp_cancer,shp_non_cancer,vi_blind,vi_low_vision',
+                'special_needs.with_manifestations' => 'required_if:has_special_needs,1|array',
+                'special_needs.with_manifestations.*' => 'string|in:applying_knowledge,communicating,interpersonal_behavior,hearing,mobility,adaptive_skill,remembering_concentrating,seeing',
+                'special_needs.is_have_pwd_id' => 'required_if:has_special_needs,1|boolean',
 
                 //learner senior fields
                 'learner_senior.semester' => 'required|string|max:255',
@@ -110,6 +114,11 @@ class FormController extends Controller
                 'requirements.birth_certificate' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
                 'requirements.grade_10_card' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
             ]);
+
+            // Convert the array to a JSON string before saving
+            if (isset($validatedData['distance_learning_preference'])) {
+                $validatedData['distance_learning_preference'] = json_encode($validatedData['distance_learning_preference']);
+            }
 
             Log::info('Validation passed.', ['validatedData' => $validatedData]);
 
@@ -194,7 +203,14 @@ class FormController extends Controller
             ]));
 
             $parentInformation = ParentInformation::create($parentInformationData);
-            $specialNeedsData = $validatedData['special_needs'] ?? [];
+            $specialNeedsData = [];
+            if (!empty($validatedData['has_special_needs'])) {
+                $specialNeedsData = [
+                    'type' => implode(',', $validatedData['special_needs']['type'] ?? []),
+                    'with_manifestations' => implode(',', $validatedData['special_needs']['with_manifestations'] ?? []),
+                    'is_have_pwd_id' => $validatedData['special_needs']['is_have_pwd_id'] ?? false,
+                ];
+            }
 
             $specialNeed = SpecialNeed::create($specialNeedsData);
 

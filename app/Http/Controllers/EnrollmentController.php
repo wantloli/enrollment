@@ -2,10 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Exports\EnrollmentsExport;
 use App\Models\Enrollment;
 use App\Http\Requests\StoreEnrollmentRequest;
 use App\Http\Requests\UpdateEnrollmentRequest;
 use Illuminate\Http\Request;
+use Maatwebsite\Excel\Facades\Excel;
 
 class EnrollmentController extends Controller
 {
@@ -16,49 +18,45 @@ class EnrollmentController extends Controller
     {
         $query = Enrollment::query();
 
+        // Always join with personal_information table for consistent sorting
+        $query->join('personal_information', 'enrollments.personal_information_id', '=', 'personal_information.id')
+            ->select('enrollments.*');
+
         if ($request->filled('search')) {
-            $query->whereHas('personalInformation', function ($q) use ($request) {
-                $q->where('last_name', 'like', '%' . $request->search . '%')
-                    ->orWhere('first_name', 'like', '%' . $request->search . '%')
-                    ->orWhere('middle_name', 'like', '%' . $request->search . '%');
+            $query->where(function ($q) use ($request) {
+                $q->where('personal_information.last_name', 'like', '%' . $request->search . '%')
+                    ->orWhere('personal_information.first_name', 'like', '%' . $request->search . '%')
+                    ->orWhere('personal_information.middle_name', 'like', '%' . $request->search . '%');
             });
         }
 
         if ($request->filled('year')) {
-            $query->where('school_year', $request->year);
+            $query->where('enrollments.school_year', $request->year);
         }
 
+        if ($request->filled('letter')) {
+            $query->where('personal_information.last_name', 'like', $request->letter . '%');
+        }
+
+        // Handle sorting
         if ($request->filled('sort') && $request->filled('direction')) {
-            $query->orderBy($request->sort, $request->direction);
+            if ($request->sort === 'last_name') {
+                $query->orderBy('personal_information.last_name', $request->direction);
+            } else {
+                $query->orderBy('enrollments.' . $request->sort, $request->direction);
+            }
         } else {
-            $query->orderBy('personal_information_id', 'asc');
+            // Default sorting by last name ascending
+            $query->orderBy('personal_information.last_name', 'asc');
         }
 
-        $enrollments = $query->paginate(10);
+        $enrollments = $query->with('personalInformation')->paginate(10)->withQueryString();
         $years = Enrollment::select('school_year')->distinct()->pluck('school_year');
 
         return view('enrollments.index', compact('enrollments', 'years'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
-    }
 
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(StoreEnrollmentRequest $request)
-    {
-        //
-    }
-
-    /**
-     * Display the specified resource.
-     */
     public function show(Enrollment $enrollment)
     {
         return view('enrollments.show', compact('enrollment'));
@@ -73,18 +71,18 @@ class EnrollmentController extends Controller
     }
 
     /**
-     * Update the specified resource in storage.
-     */
-    public function update(UpdateEnrollmentRequest $request, Enrollment $enrollment)
-    {
-        //
-    }
-
-    /**
      * Remove the specified resource from storage.
      */
     public function destroy(Enrollment $enrollment)
     {
         //
+    }
+
+    public function export(Request $request)
+    {
+        $schoolYear = $request->get('export_year', 'all');
+        $filename = $schoolYear === 'all' ? 'all_enrollments.xlsx' : "enrollments_{$schoolYear}.xlsx";
+
+        return Excel::download(new EnrollmentsExport($schoolYear), $filename);
     }
 }

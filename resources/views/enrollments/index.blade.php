@@ -33,6 +33,25 @@
             </form>
         </div>
 
+        <!-- Alphabet Filter Section -->
+        <div class="bg-white rounded-lg shadow-md p-6 mb-6">
+            <h3 class="text-lg font-semibold text-gray-700 mb-4">Filter by Last Name</h3>
+            <div class="flex flex-wrap gap-2">
+                <a href="{{ route('enrollments.index', array_merge(request()->query(), ['letter' => ''])) }}"
+                    class="px-4 py-2 rounded-md transition duration-200 ease-in-out text-sm font-medium
+                {{ !request('letter') ? 'bg-blue-600 text-white shadow-md hover:bg-blue-700' : 'bg-gray-100 text-gray-700 hover:bg-gray-200' }}">
+                    All
+                </a>
+                @foreach (range('A', 'Z') as $letter)
+                    <a href="{{ route('enrollments.index', array_merge(request()->query(), ['letter' => $letter])) }}"
+                        class="px-4 py-2 rounded-md transition duration-200 ease-in-out text-sm font-medium
+                {{ request('letter') == $letter ? 'bg-blue-600 text-white shadow-md hover:bg-blue-700' : 'bg-gray-100 text-gray-700 hover:bg-gray-200' }}">
+                        {{ $letter }}
+                    </a>
+                @endforeach
+            </div>
+        </div>
+
         <!-- Table Section -->
         <div class="bg-white rounded-lg shadow-md overflow-x-auto">
 
@@ -76,7 +95,7 @@
                             <td class="px-6 py-4 whitespace-nowrap">{{ $enrollment->personalInformation->middle_name }}
                             </td>
                             <td class="px-6 py-4 whitespace-nowrap">{{ $enrollment->school_year }}</td>
-                            <td class="px-6 py-4 whitespace-nowrap">{{ $enrollment->status }}</td>
+                            <td class="px-6 py-4 whitespace-nowrap">{{ strtoupper($enrollment->status) }}</td>
                         </tr>
                     @empty
                         <tr>
@@ -92,6 +111,31 @@
         <!-- Pagination -->
         <div class="mt-4">
             {{ $enrollments->appends(request()->query())->links() }}
+        </div>
+
+        <!-- Export Section -->
+        <div class="mb-6 bg-white rounded-lg shadow-md p-4">
+            <form action="{{ route('enrollments.export') }}" method="GET" class="flex items-end space-x-4">
+                <div class="flex-1">
+                    <label for="export_year" class="block text-sm font-medium text-gray-700 mb-1">School Year to
+                        Export</label>
+                    <select name="export_year" id="export_year"
+                        class="w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500">
+                        <option value="all">All School Years</option>
+                        @foreach ($years as $year)
+                            <option value="{{ $year }}">{{ $year }}</option>
+                        @endforeach
+                    </select>
+                </div>
+                <button type="submit"
+                    class="inline-flex items-center px-4 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 transition-colors">
+                    <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M3 10h18M3 14h18M3 6h18M3 18h18" />
+                    </svg>
+                    Export to Excel
+                </button>
+            </form>
         </div>
     </div>
 </x-admin-layout>

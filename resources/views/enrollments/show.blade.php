@@ -1,5 +1,6 @@
 <x-admin-layout>
     <div class="container mx-auto px-4 py-6">
+
         <!-- Header Section -->
         <div class="flex justify-between items-center mb-6">
             <h1 class="text-3xl font-bold text-gray-900">Enrollment Details</h1>
@@ -14,6 +15,11 @@
         </div>
 
         <!-- Main Content -->
+        <!-- Status Section -->
+        <div class="w-full bg-blue-100 text-blue-800 text-center py-2 mb-6 rounded-lg">
+            <p class="text-lg font-semibold">Status: {{ strtoupper($enrollment->status) }}</p>
+        </div>
+
         <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
             <!-- Personal Information Card -->
             <div class="bg-white rounded-lg shadow-md p-6">
@@ -145,7 +151,7 @@
                         <div class="flex items-center mb-4">
                             <svg class="w-6 h-6 text-purple-600 mr-2" fill="none" stroke="currentColor"
                                 viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" k
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                     d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
                             </svg>
                             <h2 class="text-xl font-semibold text-gray-900">Special Needs</h2>
@@ -159,12 +165,13 @@
                                 <div class="flex items-center">
                                     <span
                                         class="w-3 h-3 rounded-full {{ $enrollment->specialNeed->with_diagnosis ? 'bg-green-500' : 'bg-red-500' }} mr-2"></span>
-                                    <span>With Diagnosis</span>
+                                    <span>With Diagnosis: {{ $enrollment->specialNeed->with_diagnosis }}</span>
                                 </div>
                                 <div class="flex items-center">
                                     <span
                                         class="w-3 h-3 rounded-full {{ $enrollment->specialNeed->with_manifestations ? 'bg-green-500' : 'bg-red-500' }} mr-2"></span>
-                                    <span>With Manifestations</span>
+                                    <span>With Manifestations:
+                                        {{ $enrollment->specialNeed->with_manifestations }}</span>
                                 </div>
                                 <div class="flex items-center">
                                     <span
@@ -176,6 +183,7 @@
                             <p class="text-gray-500 italic">No special needs information available.</p>
                         @endif
                     </div>
+
 
                     <div class="border-t pt-6">
                         <div class="flex items-center mb-4">
@@ -346,8 +354,6 @@
                 </div>
             </div>
         </div>
-
-
     </div>
 
     <!-- Action Buttons -->

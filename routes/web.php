@@ -38,11 +38,13 @@ Route::middleware(['auth', 'role:admin,teacher'])->group(function () {
     Route::get('/enrollments/pending', [EnrollmentController::class, 'pending'])->name('enrollments.pending');
     Route::get('/enrollments/reviewed', [EnrollmentController::class, 'reviewed'])->name('enrollments.reviewed');
     Route::get('/enrollments/enrolled', [EnrollmentController::class, 'enrolled'])->name('enrollments.enrolled');
+    Route::get('/enrollments/rejected', [EnrollmentController::class, 'rejected'])->name('enrollments.rejected');
 
     // General enrollment routes should come after specific ones
     Route::get('/enrollments', [EnrollmentController::class, 'index'])->name('enrollments.index');
     Route::get('/enrollments/{enrollment}', [EnrollmentController::class, 'show'])->name('enrollments.show');
     Route::get('/enrollments/{enrollment}/edit', [EnrollmentController::class, 'edit'])->name('enrollments.edit');
+    Route::get('/enrollments/{enrollment}/reject', [EnrollmentController::class, 'reject'])->name('enrollments.reject');
 
     Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 });

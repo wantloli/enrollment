@@ -1,7 +1,7 @@
 <x-admin-layout>
     <div class="container mx-auto px-4 py-6">
         <div class="mb-6 flex justify-between items-center">
-            <h2 class="text-2xl font-bold text-gray-800">Pending Enrollments</h2>
+            <h2 class="text-2xl font-bold text-gray-800">Rejected Enrollments</h2>
         </div>
 
         <div class="mb-6 bg-white rounded-lg shadow-md p-4">
@@ -56,36 +56,27 @@
             <table class="min-w-full divide-y divide-gray-200">
                 <thead class="bg-gray-50">
                     <tr>
-                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Last
-                            Name</th>
-                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">First
-                            Name</th>
-                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                            Middle Name</th>
-                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                            School Year</th>
-                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                            Submitted At</th>
+                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Last Name</th>
+                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">First Name</th>
+                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Middle Name</th>
+                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">School Year</th>
+                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Rejected At</th>
                     </tr>
                 </thead>
                 <tbody class="bg-white divide-y divide-gray-200">
-                    @forelse ($pendingEnrollments as $enrollment)
+                    @forelse ($rejectedEnrollments as $enrollment)
                         <tr class="hover:bg-gray-50 cursor-pointer"
                             onclick="window.location='{{ route('enrollments.show', $enrollment->id) }}'">
-                            <td class="px-6 py-4 whitespace-nowrap">{{ $enrollment->personalInformation->last_name }}
-                            </td>
-                            <td class="px-6 py-4 whitespace-nowrap">{{ $enrollment->personalInformation->first_name }}
-                            </td>
-                            <td class="px-6 py-4 whitespace-nowrap">{{ $enrollment->personalInformation->middle_name }}
-                            </td>
+                            <td class="px-6 py-4 whitespace-nowrap">{{ $enrollment->personalInformation->last_name }}</td>
+                            <td class="px-6 py-4 whitespace-nowrap">{{ $enrollment->personalInformation->first_name }}</td>
+                            <td class="px-6 py-4 whitespace-nowrap">{{ $enrollment->personalInformation->middle_name }}</td>
                             <td class="px-6 py-4 whitespace-nowrap">{{ $enrollment->school_year }}</td>
-                            <td class="px-6 py-4 whitespace-nowrap">{{ $enrollment->created_at->format('M d, Y H:i') }}
-                            </td>
+                            <td class="px-6 py-4 whitespace-nowrap">{{ $enrollment->updated_at->format('M d, Y H:i') }}</td>
                         </tr>
                     @empty
                         <tr>
                             <td colspan="6" class="px-6 py-4 text-center text-gray-500">
-                                No pending enrollments found
+                                No rejected enrollments found
                             </td>
                         </tr>
                     @endforelse
@@ -95,7 +86,7 @@
 
         <!-- Pagination -->
         <div class="mt-4">
-            {{ $pendingEnrollments->links() }}
+            {{ $rejectedEnrollments->links() }}
         </div>
     </div>
 </x-admin-layout>

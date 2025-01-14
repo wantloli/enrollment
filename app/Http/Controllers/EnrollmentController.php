@@ -125,6 +125,14 @@ class EnrollmentController extends Controller
         return view('enrollments.status.reviewed', compact('reviewedEnrollments', 'schoolYears'));
     }
 
+    public function setStatusReviewed($id)
+    {
+        $enrollment = Enrollment::find($id);
+        $enrollment->status = 'reviewed';
+        $enrollment->save();
+        return redirect()->route('enrollments.pending');
+    }
+
     public function enrolled(Request $request)
     {
         $query = Enrollment::where('status', 'enrolled')

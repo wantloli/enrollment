@@ -56,28 +56,35 @@
             <table class="min-w-full divide-y divide-gray-200">
                 <thead class="bg-gray-50">
                     <tr>
-                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Student ID</th>
-                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Last Name</th>
-                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">First Name</th>
-                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Middle Name</th>
-                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">School Year</th>
-                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Enrolled At</th>
+                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Last
+                            Name</th>
+                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">First
+                            Name</th>
+                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                            Middle Name</th>
+                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                            School Year</th>
+                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                            Enrolled At</th>
                     </tr>
                 </thead>
                 <tbody class="bg-white divide-y divide-gray-200">
                     @forelse ($enrolledStudents as $enrollment)
                         <tr class="hover:bg-gray-50 cursor-pointer"
                             onclick="window.location='{{ route('enrollments.show', $enrollment->id) }}'">
-                            <td class="px-6 py-4 whitespace-nowrap">{{ $enrollment->student_id }}</td>
-                            <td class="px-6 py-4 whitespace-nowrap">{{ $enrollment->personalInformation->last_name }}</td>
-                            <td class="px-6 py-4 whitespace-nowrap">{{ $enrollment->personalInformation->first_name }}</td>
-                            <td class="px-6 py-4 whitespace-nowrap">{{ $enrollment->personalInformation->middle_name }}</td>
+                            <td class="px-6 py-4 whitespace-nowrap">{{ $enrollment->personalInformation->last_name }}
+                            </td>
+                            <td class="px-6 py-4 whitespace-nowrap">{{ $enrollment->personalInformation->first_name }}
+                            </td>
+                            <td class="px-6 py-4 whitespace-nowrap">{{ $enrollment->personalInformation->middle_name }}
+                            </td>
                             <td class="px-6 py-4 whitespace-nowrap">{{ $enrollment->school_year }}</td>
-                            <td class="px-6 py-4 whitespace-nowrap">{{ $enrollment->enrolled_at?->format('M d, Y H:i') }}</td>
+                            <td class="px-6 py-4 whitespace-nowrap">
+                                {{ $enrollment->enrolled_at?->format('M d, Y H:i') }}</td>
                         </tr>
                     @empty
                         <tr>
-                            <td colspan="6" class="px-6 py-4 text-center text-gray-500">
+                            <td colspan="5" class="px-6 py-4 text-center text-gray-500">
                                 No enrolled students found
                             </td>
                         </tr>

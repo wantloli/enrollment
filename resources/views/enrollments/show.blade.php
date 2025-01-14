@@ -1,7 +1,52 @@
 <x-admin-layout>
-    <div class="container mx-auto px-4 py-6">
+    <style>
+        @media print {
 
-        <!-- Header Section -->
+            /* Hide header and other layout elements */
+            header,
+            nav,
+            .no-print {
+                display: none !important;
+            }
+
+            /* Reset any layout margins/padding */
+            body {
+                margin: 0;
+                padding: 0;
+                background: #fff;
+            }
+
+            /* Ensure the content is visible */
+            .print-content {
+                display: block !important;
+                width: 100% !important;
+                margin: 0 !important;
+                padding: 0 !important;
+                position: absolute;
+                left: 0;
+                top: 0;
+            }
+
+            /* Force background colors to print */
+            * {
+                -webkit-print-color-adjust: exact !important;
+                print-color-adjust: exact !important;
+            }
+
+            /* Ensure all content is visible */
+            .grid {
+                display: grid !important;
+            }
+
+            /* Ensure proper page breaks */
+            .page-break {
+                page-break-before: always;
+            }
+        }
+    </style>
+
+    <!-- Header buttons - Will not print -->
+    <div class="container mx-auto px-4 py-6 no-print">
         <div class="flex justify-between items-center mb-6">
             <h1 class="text-3xl font-bold text-gray-900">Enrollment Details</h1>
             <a href="javascript:history.back()"
@@ -13,6 +58,10 @@
                 Back
             </a>
         </div>
+    </div>
+
+    <!-- Printable content -->
+    <div class="print-content container mx-auto px-4 py-6">
 
         <!-- Main Content -->
         <!-- Status Section -->
@@ -356,8 +405,8 @@
         </div>
     </div>
 
-    <!-- Action Buttons -->
-    <div class="mt-6 flex justify-end space-x-4">
+    <!-- Action buttons - Will not print -->
+    <div class="mt-6 flex justify-end space-x-4 no-print">
         <a href="{{ route('enrollments.edit', $enrollment) }}"
             class="inline-flex items-center px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors">
             <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -375,11 +424,13 @@
             Print Details
         </button>
     </div>
-    </div>
 
     <script>
         function printEnrollment() {
-            window.print();
+            // Add a small delay to ensure content is ready
+            setTimeout(() => {
+                window.print();
+            }, 100);
         }
     </script>
 </x-admin-layout>

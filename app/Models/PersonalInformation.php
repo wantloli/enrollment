@@ -29,6 +29,7 @@ class PersonalInformation extends Model
         'religion',
         'mother_tongue',
         'four_ps_household_number',
+        'email',
     ];
 
     public function enrollments()

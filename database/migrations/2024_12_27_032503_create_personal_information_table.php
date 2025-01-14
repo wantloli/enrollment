@@ -25,6 +25,7 @@ return new class extends Migration
             $table->string('religion');
             $table->string('mother_tongue');
             $table->string('four_ps_household_number')->nullable();
+            $table->string('email')->nullable()->unique();
             $table->timestamps();
         });
     }

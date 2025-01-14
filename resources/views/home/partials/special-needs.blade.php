@@ -92,7 +92,7 @@
                     <label for="is_have_pwd_id" class="block text-base font-medium text-gray-900 mb-2">
                         Do you have a PWD ID?
                     </label>
-                    <select id="is_have_pwd_id" name="special_needs[is_have_pwd_id]" required
+                    <select id="is_have_pwd_id" name="special_needs[is_have_pwd_id]"
                         class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 text-gray-700">
                         <option value="">Please select...</option>
                         <option value="1">Yes</option>

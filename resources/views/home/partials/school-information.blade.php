@@ -6,8 +6,8 @@
                 Year</label>
             <select id="school_year" name="school_year" required
                 class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 p-2">
-                <option value="">Select School Year</option>
-                @foreach (range(date('Y') - 5, date('Y') + 5) as $year)
+                <option value="{{ date('Y') }}-{{ date('Y') + 1 }}">{{ date('Y') }}-{{ date('Y') + 1 }}</option>
+                @foreach (range(date('Y'), date('Y') + 5) as $year)
                     <option value="{{ $year }}-{{ $year + 1 }}">
                         {{ $year }}-{{ $year + 1 }}</option>
                 @endforeach

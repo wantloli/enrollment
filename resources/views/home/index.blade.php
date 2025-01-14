@@ -1,5 +1,4 @@
 <x-layout>
-
     <!-- Hero Section -->
     <div class="relative bg-blue-900 text-white py-24">
         <div class="container mx-auto px-6">
@@ -31,6 +30,26 @@
                 </div>
                 <div class="bg-white rounded-lg shadow-md p-6">
                     <h3 class="text-xl font-bold mb-4">HUMSS</h3>
+                    <p class="text-gray-600">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut enim ad
+                        minim veniam, quis nostrud exercitation.</p>
+                </div>
+                <div class="bg-white rounded-lg shadow-md p-6">
+                    <h3 class="text-xl font-bold mb-4">ICT</h3>
+                    <p class="text-gray-600">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut enim ad
+                        minim veniam, quis nostrud exercitation.</p>
+                </div>
+                <div class="bg-white rounded-lg shadow-md p-6">
+                    <h3 class="text-xl font-bold mb-4">Home Economics</h3>
+                    <p class="text-gray-600">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut enim ad
+                        minim veniam, quis nostrud exercitation.</p>
+                </div>
+                <div class="bg-white rounded-lg shadow-md p-6">
+                    <h3 class="text-xl font-bold mb-4">Agri-Fishery Arts</h3>
+                    <p class="text-gray-600">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut enim ad
+                        minim veniam, quis nostrud exercitation.</p>
+                </div>
+                <div class="bg-white rounded-lg shadow-md p-6">
+                    <h3 class="text-xl font-bold mb-4">Industrial Arts</h3>
                     <p class="text-gray-600">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut enim ad
                         minim veniam, quis nostrud exercitation.</p>
                 </div>
@@ -110,5 +129,5 @@
             </div>
         </div>
     </section>
-
+    <x-footer />
 </x-layout>

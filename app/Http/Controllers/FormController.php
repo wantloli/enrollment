@@ -52,6 +52,7 @@ class FormController extends Controller
                 'religion' => 'required|string|max:255',
                 'mother_tongue' => 'required|string|max:255',
                 'four_ps_household_number' => 'nullable|string|max:255',
+                'email' => 'nullable|email|unique:personal_information,email|max:255',
 
                 // Update the validation rule for distance_learning_preference
                 'distance_learning_preference' => 'required|array|min:1',
@@ -97,7 +98,7 @@ class FormController extends Controller
                 'special_needs.type.*' => 'string|in:adhd,asd,cp,ebd,hi,id,ld,md,oph,sld,shp_cancer,shp_non_cancer,vi_blind,vi_low_vision',
                 'special_needs.with_manifestations' => 'required_if:has_special_needs,1|array',
                 'special_needs.with_manifestations.*' => 'string|in:applying_knowledge,communicating,interpersonal_behavior,hearing,mobility,adaptive_skill,remembering_concentrating,seeing',
-                'special_needs.is_have_pwd_id' => 'required_if:has_special_needs,1|boolean',
+                'special_needs.is_have_pwd_id' => 'nullable|boolean',
 
                 //learner senior fields
                 'learner_senior.semester' => 'required|string|max:255',

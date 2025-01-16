@@ -12,6 +12,7 @@ use App\Models\ReturningLearner;
 use App\Models\SpecialNeed;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Validation\ValidationException;
 
 class FormController extends Controller
 {
@@ -34,18 +35,22 @@ class FormController extends Controller
     public function store(Request $request)
     {
         try {
+
+            $request->merge([
+                'same_as_home' => $request->boolean('same_as_home'),
+            ]);
+
             $validatedData = $request->validate([
                 'school_year' => 'required|string|max:255',
                 'learners_reference_no' => 'required|string|max:255',
                 'grade_to_enroll' => 'required|string|max:255',
 
-                //personal information fields
+                // Personal information fields
                 'birth_certificate_no' => 'nullable|string|max:255',
                 'last_name' => 'required|string|max:255|regex:' . self::NAME_REGEX,
                 'middle_name' => 'required|string|max:255|regex:' . self::NAME_REGEX,
                 'first_name' => 'required|string|max:255|regex:' . self::NAME_REGEX,
                 'age' => 'required|integer|min:1',
-                'age' => 'required|integer',
                 'sex' => 'required|string|max:255',
                 'birth_place' => 'required|string|max:255',
                 'birth_date' => 'required|date',
@@ -54,7 +59,7 @@ class FormController extends Controller
                 'four_ps_household_number' => 'nullable|string|max:255',
                 'email' => 'nullable|email|unique:personal_information,email|max:255',
 
-                // Update the validation rule for distance_learning_preference
+                // Distance learning preference
                 'distance_learning_preference' => 'required|array|min:1',
                 'distance_learning_preference.*' => 'required|string|in:modular,online,blended',
 
@@ -68,17 +73,17 @@ class FormController extends Controller
                 'home_address.zip_code' => 'required|string|max:255',
 
                 // Current address fields
-                'current_address.house_no' => 'required_unless:same_as_home,1|string|max:255',
-                'current_address.street_name' => 'required_unless:same_as_home,1|string|max:255',
-                'current_address.province' => 'required_unless:same_as_home,1|string|max:255',
-                'current_address.municipality' => 'required_unless:same_as_home,1|string|max:255',
-                'current_address.barangay' => 'required_unless:same_as_home,1|string|max:255',
-                'current_address.country' => 'required_unless:same_as_home,1|string|max:255',
-                'current_address.zip_code' => 'required_unless:same_as_home,1|string|max:255',
+                'current_address.house_no' => 'required_unless:same_as_home,true|string|max:255',
+                'current_address.street_name' => 'required_unless:same_as_home,true|string|max:255',
+                'current_address.province' => 'required_unless:same_as_home,true|string|max:255',
+                'current_address.municipality' => 'required_unless:same_as_home,true|string|max:255',
+                'current_address.barangay' => 'required_unless:same_as_home,true|string|max:255',
+                'current_address.country' => 'required_unless:same_as_home,true|string|max:255',
+                'current_address.zip_code' => 'required_unless:same_as_home,true|string|max:255',
 
                 'same_as_home' => 'boolean',
 
-                //parent information fields
+                // Parent information fields
                 'father_last_name' => 'nullable|string|max:255',
                 'father_first_name' => 'nullable|string|max:255',
                 'father_middle_name' => 'nullable|string|max:255',
@@ -92,26 +97,26 @@ class FormController extends Controller
                 'legal_middle_name' => 'nullable|string|max:255',
                 'legal_contact_number' => 'nullable|string|max:255',
 
-                //special needs fields
+                // Special needs fields
                 'has_special_needs' => 'required|boolean',
-                'special_needs.type' => 'required_if:has_special_needs,1|array',
+                'special_needs.type' => 'required_if:has_special_needs,true|array',
                 'special_needs.type.*' => 'string|in:adhd,asd,cp,ebd,hi,id,ld,md,oph,sld,shp_cancer,shp_non_cancer,vi_blind,vi_low_vision',
-                'special_needs.with_manifestations' => 'required_if:has_special_needs,1|array',
+                'special_needs.with_manifestations' => 'required_if:has_special_needs,true|array',
                 'special_needs.with_manifestations.*' => 'string|in:applying_knowledge,communicating,interpersonal_behavior,hearing,mobility,adaptive_skill,remembering_concentrating,seeing',
                 'special_needs.is_have_pwd_id' => 'nullable|boolean',
 
-                //learner senior fields
+                // Learner senior fields
                 'learner_senior.semester' => 'required|string|max:255',
                 'learner_senior.track' => 'required|string|max:255',
                 'learner_senior.strand' => 'required|string|max:255',
 
-                //returning learner fields
+                // Returning learner fields
                 'returning_learner.grade_level' => 'nullable|string|max:255',
                 'returning_learner.school_year' => 'nullable|string|max:255',
                 'returning_learner.school' => 'nullable|string|max:255',
                 'returning_learner.school_id' => 'nullable|string|max:255',
 
-                //requirements fields
+                // Requirements
                 'requirements.birth_certificate' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
                 'requirements.grade_10_card' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
             ]);
@@ -262,13 +267,29 @@ class FormController extends Controller
             }
 
             return redirect()->route('form.thank-you')->with('success', 'Enrollment created successfully.');
-        } catch (\Exception $e) {
-            Log::error('An error occurred during form submission.', [
-                'error' => $e->getMessage(),
-                'trace' => $e->getTraceAsString()
+        } catch (ValidationException $e) {
+            // Extract and log all validation errors
+            $validationErrors = $e->errors();
+            Log::error('Validation failed during form submission.', [
+                'validation_errors' => $validationErrors,
             ]);
 
-            return redirect()->back()->withInput()->with('error', 'An error occurred: ' . $e->getMessage());
+            // Redirect back with all validation errors
+            return redirect()->back()
+                ->withInput()
+                ->withErrors($validationErrors)
+                ->with('error', 'There were validation errors. Please review and correct them.');
+        } catch (\Exception $e) {
+            // Log the general exception
+            Log::error('An error occurred during form submission.', [
+                'error' => $e->getMessage(),
+                'trace' => $e->getTraceAsString(),
+            ]);
+
+            // Redirect back with a general error message
+            return redirect()->back()
+                ->withInput()
+                ->with('error', 'An unexpected error occurred. Please try again.');
         }
     }
 }

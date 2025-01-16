@@ -224,7 +224,7 @@
                                 </div>
                                 <div class="flex items-center">
                                     <span
-                                        class="w-3 h-3 rounded-full {{ $enrollment->specialNeed->is_have_pwd_id != 1 ? 'bg-green-500' : 'bg-red-500' }} mr-2"></span>
+                                        class="w-3 h-3 rounded-full {{ $enrollment->specialNeed->is_have_pwd_id !== null || $enrollment->specialNeed->is_have_pwd_id == 1 ? 'bg-green-500' : 'bg-red-500' }} mr-2"></span>
                                     <span>Has PWD ID</span>
                                 </div>
                             </div>
@@ -407,6 +407,14 @@
 
     <!-- Action buttons - Will not print -->
     <div class="mt-6 flex justify-end space-x-4 no-print">
+        <form action="{{ route('enrollments.mark-reviewed', $enrollment->id) }}" method="POST">
+            @csrf
+            <button type="submit"
+                class="px-4 py-2 bg-blue-600 text-white font-semibold rounded-lg shadow-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2">
+                Mark as Reviewed
+            </button>
+        </form>
+
         <a href="{{ route('enrollments.edit', $enrollment) }}"
             class="inline-flex items-center px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors">
             <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">

@@ -12,6 +12,14 @@
 </head>
 
 <body class="bg-gray-100 flex">
+
+    <div id="time-container"
+        class="fixed top-3 right-5 bg-white/90 backdrop-blur-sm px-4 py-2 rounded-lg shadow-lg font-sans text-sm text-gray-700 z-50 flex items-center space-x-2">
+        <i class="fas fa-clock text-blue-600"></i>
+        <span id="time-text"></span>
+    </div>
+
+    <div id="time-container" class="time-container"></div>
     <nav class="bg-blue-800 text-white shadow-lg w-64 min-h-screen flex flex-col justify-between">
         <div class="px-6 py-3">
             <a href="" class="font-bold text-xl block py-2">Balayan Senior High School</a>
@@ -83,7 +91,7 @@
                         </div>
                     </div>
                 @endif
-                <a href="#" class="block py-2 hover:text-blue-200 flex items-center">
+                <a href="{{ route('settings.index') }}" class="block py-2 hover:text-blue-200 flex items-center">
                     <i class="fas fa-cog w-5 h-5 mr-2"></i>
                     Settings
                 </a>
@@ -102,10 +110,37 @@
             </div>
         </div>
     </nav>
-    <div class="flex-1 p-6">
+    <div class="flex-1 px-6 py-10">
         {{ $slot }}
     </div>
 </body>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const timeText = document.getElementById('time-text');
+
+        function updateTime() {
+            const now = new Date();
+            const formattedTime = now.toLocaleTimeString('en-US', {
+                hour: '2-digit',
+                minute: '2-digit',
+                second: '2-digit',
+                hour12: true
+            });
+            const formattedDate = now.toLocaleDateString('en-US', {
+                weekday: 'long',
+                year: 'numeric',
+                month: 'long',
+                day: 'numeric'
+            });
+            timeText.textContent = `${formattedDate} ${formattedTime}`;
+        }
+
+        setInterval(updateTime, 1000);
+        updateTime();
+    });
+</script>
+
 <script>
     document.addEventListener('DOMContentLoaded', function() {
         function setupDropdown(buttonId, dropdownId, iconId, storageKey) {

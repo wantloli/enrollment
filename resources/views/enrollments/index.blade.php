@@ -80,7 +80,7 @@
                         <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                             School Year</th>
                         <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                            Status
+                            Strand
                         </th>
                     </tr>
                 </thead>
@@ -95,7 +95,7 @@
                             <td class="px-6 py-4 whitespace-nowrap">{{ $enrollment->personalInformation->middle_name }}
                             </td>
                             <td class="px-6 py-4 whitespace-nowrap">{{ $enrollment->school_year }}</td>
-                            <td class="px-6 py-4 whitespace-nowrap">{{ strtoupper($enrollment->status) }}</td>
+                            <td class="px-6 py-4 whitespace-nowrap">{{ strtoupper($enrollment->learnerSenior->strand) }}</td>
                         </tr>
                     @empty
                         <tr>
@@ -124,6 +124,16 @@
                         <option value="all">All School Years</option>
                         @foreach ($years as $year)
                             <option value="{{ $year }}">{{ $year }}</option>
+                        @endforeach
+                    </select>
+                </div>
+                <div class="flex-1">
+                    <label for="strand" class="block text-sm font-medium text-gray-700 mb-1">Strand</label>
+                    <select name="strand" id="strand"
+                        class="w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500">
+                        <option value="all">All Strands</option>
+                        @foreach ($strands as $strand)
+                            <option value="{{ $strand }}">{{ $strand }}</option>
                         @endforeach
                     </select>
                 </div>

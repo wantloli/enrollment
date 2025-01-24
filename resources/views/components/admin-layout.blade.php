@@ -20,7 +20,7 @@
     </div>
 
     <div id="time-container" class="time-container"></div>
-    <nav class="bg-blue-800 text-white shadow-lg w-64 min-h-screen flex flex-col justify-between">
+    <nav class="bg-blue-800 text-white shadow-lg w-64 min-h-screen flex flex-col justify-between fixed left-0 top-0">
         <div class="px-6 py-3">
             <a href="" class="font-bold text-xl block py-2">Balayan Senior High School</a>
             <div class="mt-6">
@@ -32,40 +32,6 @@
                     <i class="fas fa-list w-5 h-5 mr-2"></i>
                     Enrollment List
                 </a>
-                <div class="relative">
-                    <button id="enrollmentDropdownButton"
-                        class="block py-2 hover:text-blue-200 w-full text-left flex items-center justify-between transition-colors duration-200">
-                        <span class="flex items-center">
-                            <i class="fas fa-file-alt w-5 h-5 mr-2"></i>
-                            Enrollment
-                        </span>
-                        <i id="enrollmentDropdownIcon"
-                            class="fas fa-chevron-down w-4 h-4 transition-transform duration-200"></i>
-                    </button>
-                    <div id="enrollmentDropdown"
-                        class="pl-4 hidden transition-all duration-200 ease-in-out opacity-0 transform -translate-y-1">
-                        <a href="{{ route('enrollments.pending') }}"
-                            class="block py-2 hover:text-blue-200 flex items-center">
-                            <i class="fas fa-clock w-5 h-5 mr-2"></i>
-                            Enrollment Pending
-                        </a>
-                        <a href="{{ route('enrollments.reviewed') }}"
-                            class="block py-2 hover:text-blue-200 flex items-center">
-                            <i class="fas fa-check w-5 h-5 mr-2"></i>
-                            Enrollment Reviewed
-                        </a>
-                        <a href="{{ route('enrollments.enrolled') }}"
-                            class="block py-2 hover:text-blue-200 flex items-center">
-                            <i class="fas fa-user-graduate w-5 h-5 mr-2"></i>
-                            Enrolled
-                        </a>
-                        <a href="{{ route('enrollments.rejected') }}"
-                            class="block py-2 hover:text-blue-200 flex items-center">
-                            <i class="fas fa-times-circle w-5 h-5 mr-2"></i>
-                            Enrollment Rejected
-                        </a>
-                    </div>
-                </div>
                 @if (Auth::user()->role == 'admin')
                     <div class="relative">
                         <button id="userDropdownButton"
@@ -86,7 +52,7 @@
                             </a>
                             <a href="#" class="block py-2 hover:text-blue-200 flex items-center">
                                 <i class="fas fa-user-graduate w-5 h-5 mr-2"></i>
-                                Students
+                                Sessions
                             </a>
                         </div>
                     </div>
@@ -110,7 +76,7 @@
             </div>
         </div>
     </nav>
-    <div class="flex-1 px-6 py-10">
+    <div class="flex-1 px-6 py-10 ml-64">
         {{ $slot }}
     </div>
 </body>

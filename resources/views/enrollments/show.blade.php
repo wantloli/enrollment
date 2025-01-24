@@ -64,10 +64,10 @@
     <div class="print-content container mx-auto px-4 py-6">
 
         <!-- Main Content -->
-        <!-- Status Section -->
+        {{-- <!-- Status Section -->
         <div class="w-full bg-blue-100 text-blue-800 text-center py-2 mb-6 rounded-lg">
             <p class="text-lg font-semibold">Status: {{ strtoupper($enrollment->status) }}</p>
-        </div>
+        </div> --}}
 
         <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
             <!-- Personal Information Card -->
@@ -188,6 +188,16 @@
                         <div class="col-span-2 space-y-2">
                             <p class="text-sm text-gray-600">Strand:</p>
                             <p class="font-medium">{{ $enrollment->learnerSenior->strand }}</p>
+                        </div>
+                        <div class="col-span-2 space-y-2">
+                            <p class="text-sm text-gray-600">Learning Preference:</p>
+                            <p class="font-medium">
+                                @php
+                                    $preferences = json_decode($enrollment->distance_learning_preference, true);
+                                    $capitalizedPreferences = array_map('ucfirst', $preferences);
+                                @endphp
+                                {{ implode(', ', $capitalizedPreferences) }}
+                            </p>
                         </div>
                     </div>
                 </div>
@@ -407,7 +417,7 @@
 
     <!-- Action buttons - Will not print -->
     <div class="mt-6 flex justify-end space-x-4 no-print">
-        <form action="{{ route('enrollments.mark-reviewed', $enrollment->id) }}" method="POST">
+        {{-- <form action="{{ route('enrollments.mark-reviewed', $enrollment->id) }}" method="POST">
             @csrf
             <button type="submit"
                 class="px-4 py-2 bg-blue-600 text-white font-semibold rounded-lg shadow-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2">
@@ -422,7 +432,7 @@
                     d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
             </svg>
             Edit Enrollment
-        </a>
+        </a> --}}
         <button type="button" onclick="printEnrollment()"
             class="inline-flex items-center px-4 py-2 bg-gray-600 text-white rounded-lg hover:bg-gray-700 transition-colors">
             <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">

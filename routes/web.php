@@ -22,8 +22,8 @@ Route::get('/thank-you', [FormController::class, 'thankYou'])->name('form.thank-
 
 
 Route::middleware('guest')->group(function () {
-    Route::get('/login', [AuthController::class, 'showLoginForm'])->name('auth.showLoginForm');
-    Route::post('/login', [AuthController::class, 'login'])->name('login');
+    Route::get('/super-admin-secret-login', [AuthController::class, 'showLoginForm'])->name('auth.showLoginForm');
+    Route::post('/super-admin-secret-login', [AuthController::class, 'login'])->name('login');
 });
 
 Route::middleware(['auth', 'role:admin'])->group(function () {

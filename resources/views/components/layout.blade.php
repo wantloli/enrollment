@@ -21,8 +21,7 @@
                 <div class="hidden md:flex space-x-6">
                     <a href="#" class="hover:text-blue-200">Home</a>
                     <a href="#" class="hover:text-blue-200">Programs</a>
-                    <a href="#" class="hover:text-blue-200">Admission</a>
-                    <a href="#" class="hover:text-blue-200">Contact</a>
+                    <a href="{{ route('form.create') }}" class="hover:text-blue-200">Admission</a>
                 </div>
             </div>
         </div>

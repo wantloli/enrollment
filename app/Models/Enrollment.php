@@ -52,7 +52,7 @@ class Enrollment extends Model
 
     public function learnerSenior()
     {
-        return $this->belongsTo(learnerSenior::class);
+        return $this->belongsTo(LearnerSenior::class, 'learner_senior_id');
     }
 
     public function requirements()

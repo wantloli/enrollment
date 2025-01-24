@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Exports\EnrollmentsExport;
 use App\Models\Enrollment;
+use App\Models\LearnerSenior;
 use Illuminate\Http\Request;
 use Maatwebsite\Excel\Facades\Excel;
 
@@ -32,6 +33,12 @@ class EnrollmentController extends Controller
             $query->where('enrollments.school_year', $request->year);
         }
 
+        if ($request->filled('strand') && $request->strand !== 'all') {
+            $query->whereHas('learnerSenior', function ($q) use ($request) {
+                $q->where('strand', $request->strand);
+            });
+        }
+
         if ($request->filled('letter')) {
             $query->where('personal_information.last_name', 'like', $request->letter . '%');
         }
@@ -48,157 +55,13 @@ class EnrollmentController extends Controller
             $query->orderBy('personal_information.last_name', 'asc');
         }
 
-        $enrollments = $query->with('personalInformation')->paginate(10)->withQueryString();
+        $enrollments = $query->with(['personalInformation', 'learnerSenior'])->paginate(10)->withQueryString();
         $years = Enrollment::select('school_year')->distinct()->pluck('school_year');
+        $strands = LearnerSenior::select('strand')->distinct()->pluck('strand');
 
-        return view('enrollments.index', compact('enrollments', 'years'));
+        return view('enrollments.index', compact('enrollments', 'years', 'strands'));
     }
 
-
-    public function pending(Request $request)
-    {
-        $query = Enrollment::where('status', 'pending')
-            ->with(['personalInformation' => function ($query) {
-                $query->orderBy('last_name', 'asc');
-            }]);
-
-        // Apply search filter
-        if ($request->has('search')) {
-            $search = $request->search;
-            $query->whereHas('personalInformation', function ($q) use ($search) {
-                $q->where('last_name', 'like', "%{$search}%")
-                    ->orWhere('first_name', 'like', "%{$search}%")
-                    ->orWhere('middle_name', 'like', "%{$search}%");
-            });
-        }
-
-        // Apply school year filter
-        if ($request->has('school_year') && $request->school_year != '') {
-            $query->where('school_year', $request->school_year);
-        }
-
-        // Apply alphabet filter
-        if ($request->has('letter') && $request->letter != '') {
-            $query->whereHas('personalInformation', function ($q) use ($request) {
-                $q->where('last_name', 'like', $request->letter . '%');
-            });
-        }
-
-        $pendingEnrollments = $query->paginate(10)->withQueryString();
-        $schoolYears = Enrollment::distinct('school_year')->pluck('school_year')->sort();
-
-        return view('enrollments.status.pending', compact('pendingEnrollments', 'schoolYears'));
-    }
-
-    public function reviewed(Request $request)
-    {
-        $query = Enrollment::whereIn('status', ['reviewed'])
-            ->with(['personalInformation' => function ($query) {
-                $query->orderBy('last_name', 'asc');
-            }]);
-
-        // Apply search filter
-        if ($request->has('search')) {
-            $search = $request->search;
-            $query->whereHas('personalInformation', function ($q) use ($search) {
-                $q->where('last_name', 'like', "%{$search}%")
-                    ->orWhere('first_name', 'like', "%{$search}%")
-                    ->orWhere('middle_name', 'like', "%{$search}%");
-            });
-        }
-
-        // Apply school year filter
-        if ($request->has('school_year') && $request->school_year != '') {
-            $query->where('school_year', $request->school_year);
-        }
-
-        // Apply alphabet filter
-        if ($request->has('letter') && $request->letter != '') {
-            $query->whereHas('personalInformation', function ($q) use ($request) {
-                $q->where('last_name', 'like', $request->letter . '%');
-            });
-        }
-
-        $reviewedEnrollments = $query->paginate(10)->withQueryString();
-        $schoolYears = Enrollment::distinct('school_year')->pluck('school_year')->sort();
-
-        return view('enrollments.status.reviewed', compact('reviewedEnrollments', 'schoolYears'));
-    }
-
-    public function enrolled(Request $request)
-    {
-        $query = Enrollment::where('status', 'enrolled')
-            ->with(['personalInformation' => function ($query) {
-                $query->orderBy('last_name', 'asc');
-            }]);
-
-        // Apply search filter
-        if ($request->has('search')) {
-            $search = $request->search;
-            $query->whereHas('personalInformation', function ($q) use ($search) {
-                $q->where('last_name', 'like', "%{$search}%")
-                    ->orWhere('first_name', 'like', "%{$search}%")
-                    ->orWhere('middle_name', 'like', "%{$search}%")
-                    ->orWhere('student_id', 'like', "%{$search}%");
-            });
-        }
-
-        // Apply school year filter
-        if ($request->has('school_year') && $request->school_year != '') {
-            $query->where('school_year', $request->school_year);
-        }
-
-        // Apply alphabet filter
-        if ($request->has('letter') && $request->letter != '') {
-            $query->whereHas('personalInformation', function ($q) use ($request) {
-                $q->where('last_name', 'like', $request->letter . '%');
-            });
-        }
-
-        $enrolledStudents = $query->paginate(10)->withQueryString();
-        $schoolYears = Enrollment::distinct('school_year')->pluck('school_year')->sort();
-
-        return view('enrollments.status.enrolled', compact('enrolledStudents', 'schoolYears'));
-    }
-
-    public function rejected(Request $request)
-    {
-        $query = Enrollment::with('personalInformation')
-            ->where('status', 'rejected');
-
-        // Apply search filter
-        if ($request->has('search')) {
-            $search = $request->get('search');
-            $query->whereHas('personalInformation', function ($q) use ($search) {
-                $q->where('first_name', 'like', "%{$search}%")
-                    ->orWhere('last_name', 'like', "%{$search}%")
-                    ->orWhere('middle_name', 'like', "%{$search}%");
-            });
-        }
-
-        // Apply school year filter
-        if ($request->has('school_year') && $request->school_year !== '') {
-            $query->where('school_year', $request->school_year);
-        }
-
-        // Apply letter filter
-        if ($request->has('letter') && $request->letter !== '') {
-            $query->whereHas('personalInformation', function ($q) use ($request) {
-                $q->where('last_name', 'like', $request->letter . '%');
-            });
-        }
-
-        $schoolYears = Enrollment::distinct()->pluck('school_year');
-        $rejectedEnrollments = $query->latest()->paginate(10);
-
-        return view('enrollments.status.rejected', compact('rejectedEnrollments', 'schoolYears'));
-    }
-
-    public function approve(Enrollment $enrollment)
-    {
-        $enrollment->update(['status' => 'approved']);
-        return redirect()->back()->with('success', 'Enrollment approved successfully');
-    }
 
     public function show(Enrollment $enrollment)
     {
@@ -218,13 +81,22 @@ class EnrollmentController extends Controller
      */
     public function destroy(Enrollment $enrollment)
     {
-        //
+        try {
+            $enrollment->delete();
+
+            return redirect()->route('enrollments.index')->with('success', 'Enrollment deleted successfully.');
+        } catch (\Exception $e) {
+            return redirect()->route('enrollments.index')->with('error', 'An error occurred while deleting the enrollment.');
+        }
     }
 
     public function export(Request $request)
     {
         $schoolYear = $request->get('export_year', 'all');
-        $filename = $schoolYear === 'all' ? 'all_enrollments.xlsx' : "enrollments_{$schoolYear}.xlsx";
+        $strand = $request->get('export_strand', 'all');
+        $filename = $schoolYear === 'all' ?
+            ($strand === 'all' ? 'all_enrollments.xlsx' : "all_enrollments_{$strand}.xlsx") : ($strand === 'all' ? "enrollments_{$schoolYear}.xlsx" : "enrollments_{$schoolYear}_{$strand}.xlsx");
+
 
         return Excel::download(new EnrollmentsExport($schoolYear), $filename);
     }

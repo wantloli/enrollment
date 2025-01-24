@@ -11,6 +11,13 @@
                     <label for="modular" class="ml-2 text-sm text-gray-700">Modular (Print)</label>
                 </div>
                 <div class="flex items-center">
+                    <input type="checkbox" id="modular_digital" name="distance_learning_preference[]"
+                        value="modular_digital"
+                        class="h-4 w-4 text-blue-600 border-gray-300 rounded focus:ring-blue-500"
+                        {{ in_array('modular_digital', old('distance_learning_preference', [])) ? 'checked' : '' }}>
+                    <label for="modular_digital" class="ml-2 text-sm text-gray-700">Modular (Digital)</label>
+                </div>
+                <div class="flex items-center">
                     <input type="checkbox" id="online" name="distance_learning_preference[]" value="online"
                         class="h-4 w-4 text-blue-600 border-gray-300 rounded focus:ring-blue-500"
                         {{ in_array('online', old('distance_learning_preference', [])) ? 'checked' : '' }}>
@@ -21,6 +28,28 @@
                         class="h-4 w-4 text-blue-600 border-gray-300 rounded focus:ring-blue-500"
                         {{ in_array('blended', old('distance_learning_preference', [])) ? 'checked' : '' }}>
                     <label for="blended" class="ml-2 text-sm text-gray-700">Blended</label>
+                </div>
+                <div class="flex items-center">
+                    <input type="checkbox" id="educational_television" name="distance_learning_preference[]"
+                        value="educational_television"
+                        class="h-4 w-4 text-blue-600 border-gray-300 rounded focus:ring-blue-500"
+                        {{ in_array('educational_television', old('distance_learning_preference', [])) ? 'checked' : '' }}>
+                    <label for="educational_television" class="ml-2 text-sm text-gray-700">Educational
+                        Television</label>
+                </div>
+                <div class="flex items-center">
+                    <input type="checkbox" id="radio_based_instruction" name="distance_learning_preference[]"
+                        value="radio_based_instruction"
+                        class="h-4 w-4 text-blue-600 border-gray-300 rounded focus:ring-blue-500"
+                        {{ in_array('radio_based_instruction', old('distance_learning_preference', [])) ? 'checked' : '' }}>
+                    <label for="radio_based_instruction" class="ml-2 text-sm text-gray-700">Radio-Based
+                        Instruction</label>
+                </div>
+                <div class="flex items-center">
+                    <input type="checkbox" id="homeschooling" name="distance_learning_preference[]"
+                        value="homeschooling" class="h-4 w-4 text-blue-600 border-gray-300 rounded focus:ring-blue-500"
+                        {{ in_array('homeschooling', old('distance_learning_preference', [])) ? 'checked' : '' }}>
+                    <label for="homeschooling" class="ml-2 text-sm text-gray-700">Homeschooling</label>
                 </div>
             </div>
             @error('distance_learning_preference')

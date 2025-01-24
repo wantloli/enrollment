@@ -10,19 +10,6 @@
                             style="width: 0%">
                         </div>
                     </div>
-                    <div class="flex justify-between text-xs text-gray-600">
-                        <div>Welcome</div>
-                        <div>Requirements</div>
-                        <div>School Info</div>
-                        <div>Personal Info</div>
-                        <div>Address</div>
-                        <div>Parent Info</div>
-                        <div>Special Needs</div>
-                        <div>Learning Pref</div>
-                        <div>Returning Learner</div>
-                        <div>Senior Info</div>
-                        <div>Documents</div>
-                    </div>
                 </div>
             </div>
 
@@ -67,150 +54,7 @@
                     @include('home.partials.personal-information')
 
                     <!-- Step 5: Address Information -->
-                    <div class="step hidden" id="step5">
-                        <h2 class="text-2xl font-bold text-gray-900 mb-6">Address Information</h2>
-
-                        <!-- Home Address -->
-                        <div class="mb-8">
-                            <h3 class="text-lg font-semibold text-gray-800 mb-4">Home Address</h3>
-                            <div class="grid grid-cols-1 gap-6 md:grid-cols-2">
-                                <div>
-                                    <label for="home_house_no" class="block text-sm font-medium text-gray-700">House
-                                        Number</label>
-                                    <input type="text" id="home_house_no" name="home_address[house_no]" required
-                                        class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 p-2"
-                                        oninput="this.value = this.value.toUpperCase()">
-                                </div>
-                                <div>
-                                    <label for="home_street_name" class="block text-sm font-medium text-gray-700">Street
-                                        Name</label>
-                                    <input type="text" id="home_street_name" name="home_address[street_name]"
-                                        required
-                                        class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 p-2"
-                                        oninput="this.value = this.value.toUpperCase()">
-                                </div>
-                                <div>
-                                    <label for="home_province"
-                                        class="block text-sm font-medium text-gray-700">Province</label>
-                                    <select id="home_province" name="home_address[province]" required
-                                        class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 p-2">
-                                        <option selected disabled>Select Province</option>
-                                    </select>
-                                </div>
-                                <div>
-                                    <label for="home_municipality"
-                                        class="block text-sm font-medium text-gray-700">City/Municipality</label>
-                                    <select id="home_municipality" name="home_address[municipality]" required
-                                        class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 p-2">
-                                        <option selected disabled>Select City / Municipality</option>
-                                    </select>
-                                </div>
-                                <div>
-                                    <label for="home_country"
-                                        class="block text-sm font-medium text-gray-700">Country</label>
-                                    <input type="text" id="home_country" name="home_address[country]"
-                                        value="PHILIPPINES" readonly
-                                        class="mt-1 block w-full rounded-md border-gray-300 bg-gray-100 shadow-sm focus:border-blue-500 focus:ring-blue-500 p-2">
-                                </div>
-                                <div>
-                                    <label for="home_barangay"
-                                        class="block text-sm font-medium text-gray-700">Barangay</label>
-                                    <input type="text" id="home_barangay" name="home_address[barangay]" required
-                                        class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 p-2"
-                                        oninput="this.value = this.value.toUpperCase()">
-                                </div>
-                                <div>
-                                    <label for="home_zip_code" class="block text-sm font-medium text-gray-700">Zip
-                                        Code</label>
-                                    <input type="text" id="home_zip_code" name="home_address[zip_code]" required
-                                        class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 p-2"
-                                        oninput="this.value = this.value.toUpperCase()">
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- Current Address -->
-                        <div class="mb-4">
-                            <div class="flex items-center">
-                                <input type="checkbox" id="same_as_home" name="same_as_home" value="1"
-                                    class="rounded border-gray-300 text-blue-600 shadow-sm focus:border-blue-500 focus:ring-blue-500">
-                                <label for="same_as_home" class="ml-2 block text-sm text-gray-700">Same as Home
-                                    Address</label>
-                            </div>
-                        </div>
-
-                        <div id="current_address_section">
-                            <h3 class="text-lg font-semibold text-gray-800 mb-4">Current Address</h3>
-                            <div class="grid grid-cols-1 gap-6 md:grid-cols-2">
-                                <div>
-                                    <label for="current_house_no" class="block text-sm font-medium text-gray-700">House
-                                        Number</label>
-                                    <input type="text" id="current_house_no" name="current_address[house_no]"
-                                        required
-                                        class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 p-2"
-                                        oninput="this.value = this.value.toUpperCase()">
-                                </div>
-                                <div>
-                                    <label for="current_street_name"
-                                        class="block text-sm font-medium text-gray-700">Street Name</label>
-                                    <input type="text" id="current_street_name" name="current_address[street_name]"
-                                        required
-                                        class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 p-2"
-                                        oninput="this.value = this.value.toUpperCase()">
-                                </div>
-                                <div>
-                                    <label for="current_province"
-                                        class="block text-sm font-medium text-gray-700">Province</label>
-                                    <select id="current_province" name="current_address[province]" required
-                                        class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 p-2">
-                                        <option selected disabled>Select Province</option>
-                                    </select>
-                                </div>
-                                <div>
-                                    <label for="current_municipality"
-                                        class="block text-sm font-medium text-gray-700">City/Municipality</label>
-                                    <select id="current_municipality" name="current_address[municipality]" required
-                                        class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 p-2">
-                                        <option selected disabled>Select City / Municipality</option>
-                                    </select>
-                                </div>
-                                <div>
-                                    <label for="current_country"
-                                        class="block text-sm font-medium text-gray-700">Country</label>
-                                    <input type="text" id="current_country" name="current_address[country]"
-                                        value="PHILIPPINES" readonly
-                                        class="mt-1 block w-full rounded-md border-gray-300 bg-gray-100 shadow-sm focus:border-blue-500 focus:ring-blue-500 p-2">
-                                </div>
-                                <div>
-                                    <label for="current_barangay"
-                                        class="block text-sm font-medium text-gray-700">Barangay</label>
-                                    <input type="text" id="current_barangay" name="current_address[barangay]"
-                                        required
-                                        class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 p-2"
-                                        oninput="this.value = this.value.toUpperCase()">
-                                </div>
-                                <div>
-                                    <label for="current_zip_code" class="block text-sm font-medium text-gray-700">Zip
-                                        Code</label>
-                                    <input type="text" id="current_zip_code" name="current_address[zip_code]"
-                                        required
-                                        class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 p-2"
-                                        oninput="this.value = this.value.toUpperCase()">
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="mt-8 flex justify-between">
-                            <button type="button" onclick="prevStep(5)"
-                                class="inline-flex items-center px-4 py-2 border border-gray-300 text-base font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50">
-                                ← Back
-                            </button>
-                            <button type="button" onclick="nextStep(5)"
-                                class="inline-flex items-center px-4 py-2 border border-transparent text-base font-medium rounded-md shadow-sm text-white bg-blue-600 hover:bg-blue-700">
-                                Continue →
-                            </button>
-                        </div>
-                    </div>
+                    @include('home.partials.address-information')
 
                     <!-- Step 6: Parent Information -->
                     @include('home.partials.parent-information')
@@ -228,30 +72,37 @@
                     @include('home.partials.learner-senior-information')
 
                     <!-- Step 11: Upload Requirements -->
-                    <div class="step hidden" id="step11">
-                        <h2 class="text-2xl font-bold text-gray-900 mb-6">Upload Requirements</h2>
-                        <div class="space-y-6">
-                            <div>
-                                <label for="birth_certificate" class="block text-sm font-medium text-gray-700">Birth
-                                    Certificate</label>
-                                <input type="file" id="birth_certificate" name="requirements[birth_certificate]"
-                                    required
-                                    class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500">
+                    @include('home.partials.documents')
+
+                    <div class="step hidden" id="step12">
+                        <h2 class="text-2xl font-bold text-gray-900 mb-6">Agreement</h2>
+
+                        <div class="bg-gray-50 rounded-lg border border-gray-200 p-6 mb-8">
+                            <div class="flex items-start space-x-3">
+                                <input type="checkbox" id="agreementCheckbox"
+                                    class="mt-1 h-5 w-5 rounded border-gray-300 text-blue-600 focus:ring-blue-500 cursor-pointer">
+                                <label for="agreementCheckbox" class="text-gray-700 text-sm">
+                                    I hereby declare that the information given is true and correct to the best of my
+                                    knowledge and I
+                                    will allow the Department of Education to use my child's details to create and/or
+                                    update his/her
+                                    learner profile in the Learner Information System (LIS). The information herein
+                                    shall be treated
+                                    as confidential in compliance with the Data Privacy Act of 2012.
+                                </label>
                             </div>
-                            <div>
-                                <label for="grade_10_card" class="block text-sm font-medium text-gray-700">Grade 10
-                                    Card</label>
-                                <input type="file" id="grade_10_card" name="requirements[grade_10_card]" required
-                                    class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500">
+                            <div id="checkboxError" class="hidden mt-2 text-sm text-red-600 ml-8">
+                                Please agree to the terms before submitting the enrollment.
                             </div>
                         </div>
-                        <div class="mt-8 flex justify-between">
-                            <button type="button" onclick="prevStep(11)"
-                                class="inline-flex items-center px-4 py-2 border border-gray-300 text-base font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50">
-                                ← Back
+
+                        <div class="flex justify-between items-center">
+                            <button type="button" onclick="prevStep(12)"
+                                class="inline-flex items-center px-4 py-2 border border-gray-300 text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 transition-colors duration-200">
+                                <span class="mr-2">←</span> Back
                             </button>
-                            <button type="submit"
-                                class="inline-flex items-center px-4 py-2 border border-transparent text-base font-medium rounded-md shadow-sm text-white bg-blue-600 hover:bg-blue-700">
+                            <button type="submit" id="submitButton" disabled
+                                class="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 transition-colors duration-200 disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:bg-blue-600">
                                 Submit Enrollment
                             </button>
                         </div>
@@ -266,11 +117,46 @@
     <script src="{{ asset('js/city.min.js') }}"></script>
     @include('home.partials.validation')
     <script>
-        const totalSteps = 11;
+        document.addEventListener('DOMContentLoaded', function() {
+            const checkbox = document.getElementById('agreementCheckbox');
+            const submitButton = document.getElementById('submitButton');
+            const errorMessage = document.getElementById('checkboxError');
+
+            if (checkbox && submitButton) {
+                // Enable/disable submit button based on checkbox state
+                checkbox.addEventListener('change', function() {
+                    submitButton.disabled = !this.checked;
+                    if (errorMessage) {
+                        errorMessage.classList.toggle('hidden', this.checked);
+                    }
+                });
+
+                // Form submission handler
+                submitButton.addEventListener('click', function(e) {
+                    if (!checkbox.checked) {
+                        e.preventDefault(); // Prevent submission if checkbox isn't checked
+                        if (errorMessage) {
+                            errorMessage.classList.remove('hidden');
+                        }
+                    }
+                });
+            } else {
+                console.error('Checkbox or submit button not found!');
+            }
+        });
+    </script>
+    <script>
+        // Constants
+        const CONFIG = {
+            totalSteps: 12,
+        };
+
+        // State management
         let currentStep = 1;
 
+        // Progress bar functions
         function updateProgress() {
-            const progress = ((currentStep - 1) / (totalSteps - 1)) * 100;
+            const progress = ((currentStep - 1) / (CONFIG.totalSteps - 1)) * 100;
             document.getElementById('progress').style.width = `${progress}%`;
         }
 
@@ -279,6 +165,7 @@
                 step.classList.add('hidden');
                 step.classList.remove('active');
             });
+
             const currentStepElement = document.getElementById(`step${stepNumber}`);
             if (currentStepElement) {
                 currentStepElement.classList.remove('hidden');
@@ -288,40 +175,7 @@
             }
         }
 
-        // Error handling functions
-        function showError(element, message) {
-            const errorDiv = element.parentElement.querySelector('.error-message');
-            if (!errorDiv) {
-                const div = document.createElement('div');
-                div.className = 'error-message text-red-500 text-sm mt-1';
-                div.textContent = message;
-                element.parentElement.appendChild(div);
-            }
-        }
-
-        function removeError(element) {
-            const errorDiv = element.parentElement.querySelector('.error-message');
-            if (errorDiv) {
-                errorDiv.remove();
-            }
-        }
-
-        function showStepError(stepElement, message) {
-            const existingAlert = stepElement.querySelector('.step-error');
-            if (!existingAlert) {
-                const alertDiv = document.createElement('div');
-                alertDiv.className = 'step-error bg-red-50 border-l-4 border-red-400 p-4 my-4';
-                alertDiv.innerHTML = `
-                    <div class="flex">
-                        <div class="ml-3">
-                            <p class="text-sm text-red-700">${message}</p>
-                        </div>
-                    </div>
-                `;
-                stepElement.insertBefore(alertDiv, stepElement.firstChild);
-            }
-        }
-
+        // Navigation functions
         function nextStep(currentStepNumber) {
             if (validateStep(currentStepNumber)) {
                 showStep(currentStepNumber + 1);
@@ -332,91 +186,118 @@
             showStep(currentStepNumber - 1);
         }
 
-        // Form submission handler
-        document.getElementById('stepperForm').addEventListener('submit', function(e) {
+        // Error handling functions
+        function showError(element, message) {
+            if (!element.parentElement) return;
+
+            const existingError = element.parentElement.querySelector('.error-message');
+            if (!existingError) {
+                const div = document.createElement('div');
+                div.className = 'error-message text-red-500 text-sm mt-1';
+                div.textContent = message;
+                element.parentElement.appendChild(div);
+            }
+        }
+
+        function removeError(element) {
+            const errorDiv = element.parentElement?.querySelector('.error-message');
+            errorDiv?.remove();
+        }
+
+        function showStepError(stepElement, message) {
+            const errorClass = 'step-error';
+            const existingAlert = stepElement.querySelector(`.${errorClass}`);
+
+            if (!existingAlert) {
+                const alertDiv = document.createElement('div');
+                alertDiv.className = `${errorClass} bg-red-50 border-l-4 border-red-400 p-4 my-4`;
+                alertDiv.innerHTML = `
+            <div class="flex">
+                <div class="ml-3">
+                    <p class="text-sm text-red-700">${message}</p>
+                </div>
+            </div>
+        `;
+                stepElement.insertBefore(alertDiv, stepElement.firstChild);
+            }
+        }
+
+        // Form event handlers
+        function initializeFormHandlers() {
+            // Form submission
+            const form = document.getElementById('stepperForm');
+            form?.addEventListener('submit', handleFormSubmit);
+
+            // Special needs toggle
+            document.querySelectorAll('input[name="has_special_needs"]').forEach(radio => {
+                radio.addEventListener('change', handleSpecialNeedsChange);
+            });
+
+            // Returning learner toggle
+            const returningLearnerSelect = document.getElementById('is_returning');
+            returningLearnerSelect?.addEventListener('change', handleReturningLearnerChange);
+
+            // Same as home address toggle
+            const sameAsHomeCheckbox = document.getElementById('same_as_home');
+            sameAsHomeCheckbox?.addEventListener('change', handleSameAddressChange);
+        }
+
+        // Event handler implementations
+        function handleFormSubmit(e) {
             e.preventDefault();
             if (validateStep(currentStep)) {
-                // Show loading state
                 const submitButton = this.querySelector('button[type="submit"]');
-                submitButton.disabled = true;
-                submitButton.innerHTML = '<span class="spinner"></span> Submitting...';
-
-                // Submit the form
-                this.submit();
-            }
-        });
-
-        // Special needs toggle
-        document.querySelectorAll('input[name="has_special_needs"]').forEach(radio => {
-            radio.addEventListener('change', function() {
-                const detailsDiv = document.getElementById('special_needs_details');
-                if (this.value === '1') {
-                    detailsDiv.classList.remove('hidden');
-                } else {
-                    detailsDiv.classList.add('hidden');
+                if (submitButton) {
+                    submitButton.disabled = true;
+                    submitButton.innerHTML = '<span class="spinner"></span> Submitting...';
+                    this.submit();
                 }
-            });
-        });
+            }
+        }
 
-        // Show/hide returning learner details
-        document.getElementById('is_returning').addEventListener('change', function() {
+        function handleSpecialNeedsChange() {
+            const detailsDiv = document.getElementById('special_needs_details');
+            if (detailsDiv) {
+                detailsDiv.classList.toggle('hidden', this.value !== '1');
+            }
+        }
+
+        function handleReturningLearnerChange() {
             const detailsDiv = document.getElementById('returning_learner_details');
-            if (this.value === 'yes') {
-                detailsDiv.classList.remove('hidden');
-            } else {
-                detailsDiv.classList.add('hidden');
+            if (detailsDiv) {
+                detailsDiv.classList.toggle('hidden', this.value !== 'yes');
             }
-        });
+        }
 
-        // Initialize city selection
-        window.onload = function() {
-            // Initialize progress bar
-            updateProgress();
-
-            // Initialize city selection
-            if (typeof City !== 'undefined') {
-                var city = new City();
-                city.showProvinces("#home_province");
-                city.showProvinces("#current_province");
-
-                // Handle province change
-                document.getElementById('home_province').addEventListener('change', function() {
-                    var selectedProvince = this.value;
-                    city.showCities(selectedProvince, "#home_municipality");
-                });
-
-                document.getElementById('current_province').addEventListener('change', function() {
-                    var selectedProvince = this.value;
-                    city.showCities(selectedProvince, "#current_municipality");
-                });
-            }
-        };
-
-        // Update the existing same_as_home event listener
-        document.getElementById('same_as_home').addEventListener('change', function() {
+        function handleSameAddressChange() {
             const currentAddressSection = document.getElementById('current_address_section');
+            if (!currentAddressSection) return;
+
             const currentAddressInputs = currentAddressSection.querySelectorAll('input, select');
 
             if (this.checked) {
                 currentAddressSection.style.display = 'none';
-                // Copy home address values to current address fields
-                const fields = ['house_no', 'street_name', 'province', 'municipality', 'barangay', 'country',
-                    'zip_code'
-                ];
-                fields.forEach(field => {
-                    const currentField = document.querySelector(`[name="current_address[${field}]"]`);
-                    const homeField = document.querySelector(`[name="home_address[${field}]"]`);
-                    currentField.value = homeField.value;
-                    currentField.required = false;
-                });
+                copyHomeAddress();
+                setCurrentAddressRequired(false, currentAddressInputs);
             } else {
                 currentAddressSection.style.display = 'block';
-                currentAddressInputs.forEach(input => {
-                    if (input.hasAttribute('required-if-shown')) {
-                        input.required = true;
-                    }
-                });
+                setCurrentAddressRequired(true, currentAddressInputs);
             }
+        }
+
+        function setCurrentAddressRequired(required, inputs) {
+            inputs.forEach(input => {
+                if (input.hasAttribute('required-if-shown')) {
+                    input.required = required;
+                }
+            });
+        }
+
+        // Initialize everything when the page loads
+        window.addEventListener('load', () => {
+            updateProgress();
+            initializeFormHandlers();
+            initializeCitySelection();
         });
     </script>
 </x-layout>

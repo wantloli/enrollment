@@ -22,7 +22,7 @@ class EnrollmentsExport implements FromCollection, WithHeadings, WithMapping, Wi
 
     public function collection()
     {
-        $query = Enrollment::with(['personalInformation', 'learnerSenior']);
+        $query = Enrollment::with(['personalInformation', 'learnerSenior', 'currentAddress']);
 
         // Filter by school year if specified
         if ($this->schoolYear !== 'all') {
@@ -46,7 +46,10 @@ class EnrollmentsExport implements FromCollection, WithHeadings, WithMapping, Wi
             $enrollment->personalInformation->first_name ?? '',
             $enrollment->personalInformation->middle_name ?? '',
             "'" . $enrollment->learners_reference_no, // Add a single quote to treat as a string in Excel
+            $enrollment->personalInformation->sex ?? '',
             $enrollment->personalInformation->age ?? '',
+            $enrollment->currentAddress ?
+                $enrollment->currentAddress->barangay . ', ' . $enrollment->currentAddress->municipality : 'N/A', // Format the address
             $enrollment->school_year,
             $enrollment->learnerSenior->strand ?? 'N/A',
         ];
@@ -59,7 +62,9 @@ class EnrollmentsExport implements FromCollection, WithHeadings, WithMapping, Wi
             'First Name',
             'Middle Name',
             'LRN',
+            'Gender',
             'Age',
+            'Address',
             'School Year',
             'Strand',
         ];

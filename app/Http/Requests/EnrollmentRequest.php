@@ -41,7 +41,6 @@ class EnrollmentRequest extends FormRequest
             'religion' => 'required|string|max:255',
             'mother_tongue' => 'required|string|max:255',
             'four_ps_household_number' => 'nullable|string|max:255',
-            'email' => 'nullable|email|unique:personal_information,email|max:255',
 
             // Home address validation
             'home_address.house_no' => 'required|string|max:255',

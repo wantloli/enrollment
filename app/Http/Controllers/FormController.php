@@ -115,7 +115,6 @@ class FormController extends Controller
             'religion' => $data['religion'],
             'mother_tongue' => $data['mother_tongue'],
             'four_ps_household_number' => $data['four_ps_household_number'] ?? null,
-            'email' => $data['email'] ?? null,
             'address_id' => $addressId,
         ]);
     }

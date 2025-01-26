@@ -93,11 +93,11 @@ class EnrollmentController extends Controller
     public function export(Request $request)
     {
         $schoolYear = $request->get('export_year', 'all');
-        $strand = $request->get('export_strand', 'all');
+        $strand = $request->get('strand', 'all');
         $filename = $schoolYear === 'all' ?
             ($strand === 'all' ? 'all_enrollments.xlsx' : "all_enrollments_{$strand}.xlsx") : ($strand === 'all' ? "enrollments_{$schoolYear}.xlsx" : "enrollments_{$schoolYear}_{$strand}.xlsx");
 
 
-        return Excel::download(new EnrollmentsExport($schoolYear), $filename);
+        return Excel::download(new EnrollmentsExport($schoolYear, $strand), $filename);
     }
 }

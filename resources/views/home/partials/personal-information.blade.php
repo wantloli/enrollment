@@ -68,12 +68,6 @@
 
         <!-- Continue with remaining fields in 2 columns -->
         <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-            <div class="space-y-2">
-                <label for="email" class="block text-sm font-semibold text-gray-700">Email Address</label>
-                <input type="email" id="email" name="email"
-                    class="w-full px-4 py-2 rounded-md border border-gray-300 focus:border-blue-500 focus:ring-2 focus:ring-blue-200 transition-colors"
-                    placeholder="your.email@example.com" required>
-            </div>
 
             <div class="space-y-2">
                 <label for="sex" class="block text-sm font-semibold text-gray-700">Sex</label>

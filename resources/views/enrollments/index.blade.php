@@ -95,7 +95,8 @@
                             <td class="px-6 py-4 whitespace-nowrap">{{ $enrollment->personalInformation->middle_name }}
                             </td>
                             <td class="px-6 py-4 whitespace-nowrap">{{ $enrollment->school_year }}</td>
-                            <td class="px-6 py-4 whitespace-nowrap">{{ strtoupper($enrollment->learnerSenior->strand) }}</td>
+                            <td class="px-6 py-4 whitespace-nowrap">
+                                {{ strtoupper($enrollment->learnerSenior->strand) }}</td>
                         </tr>
                     @empty
                         <tr>

@@ -1,4 +1,5 @@
 <x-layout>
+    <x-toast />
     <div class="min-h-screen bg-gray-50 py-8">
         <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
             <!-- Progress Bar -->
@@ -38,7 +39,7 @@
                 @endif
 
                 <form id="stepperForm" method="POST" action="{{ route('form.store') }}" enctype="multipart/form-data"
-                    class="space-y-6">
+                    class="space-y-6" onsubmit="submitForm(event)">
                     @csrf
 
                     <!-- Step 1: Welcome -->
@@ -188,38 +189,16 @@
 
         // Error handling functions
         function showError(element, message) {
-            if (!element.parentElement) return;
-
-            const existingError = element.parentElement.querySelector('.error-message');
-            if (!existingError) {
-                const div = document.createElement('div');
-                div.className = 'error-message text-red-500 text-sm mt-1';
-                div.textContent = message;
-                element.parentElement.appendChild(div);
-            }
+            showToast(message);
+            element.classList.add('border-red-500');
         }
 
         function removeError(element) {
-            const errorDiv = element.parentElement?.querySelector('.error-message');
-            errorDiv?.remove();
+            element.classList.remove('border-red-500');
         }
 
         function showStepError(stepElement, message) {
-            const errorClass = 'step-error';
-            const existingAlert = stepElement.querySelector(`.${errorClass}`);
-
-            if (!existingAlert) {
-                const alertDiv = document.createElement('div');
-                alertDiv.className = `${errorClass} bg-red-50 border-l-4 border-red-400 p-4 my-4`;
-                alertDiv.innerHTML = `
-            <div class="flex">
-                <div class="ml-3">
-                    <p class="text-sm text-red-700">${message}</p>
-                </div>
-            </div>
-        `;
-                stepElement.insertBefore(alertDiv, stepElement.firstChild);
-            }
+            showToast(message);
         }
 
         // Form event handlers
@@ -299,5 +278,50 @@
             initializeFormHandlers();
             initializeCitySelection();
         });
+
+        async function submitForm(e) {
+            e.preventDefault();
+
+            if (!validateStep(currentStep)) {
+                return;
+            }
+
+            const form = e.target;
+            const submitButton = form.querySelector('button[type="submit"]');
+            const formData = new FormData(form);
+
+            try {
+                submitButton.disabled = true;
+                submitButton.innerHTML = '<span class="spinner"></span> Submitting...';
+
+                const response = await fetch(form.action, {
+                    method: 'POST',
+                    body: formData,
+                    headers: {
+                        'X-Requested-With': 'XMLHttpRequest',
+                    }
+                });
+
+                const data = await response.json();
+
+                if (!response.ok) {
+                    throw new Error(data.message || 'Something went wrong');
+                }
+
+                if (data.errors) {
+                    Object.entries(data.errors).forEach(([field, errors]) => {
+                        errors.forEach(error => showToast(error));
+                    });
+                } else if (data.success) {
+                    showToast(data.message, 'success');
+                    window.location.href = data.redirect;
+                }
+            } catch (error) {
+                showToast(error.message);
+            } finally {
+                submitButton.disabled = false;
+                submitButton.innerHTML = 'Submit Enrollment';
+            }
+        }
     </script>
 </x-layout>

@@ -17,11 +17,18 @@
     <nav class="bg-blue-800 text-white shadow-lg">
         <div class="container mx-auto px-6 py-3">
             <div class="flex items-center justify-between">
-                <a href="{{ route('home.index') }}" class="font-bold text-xl">Balayan Senior High School</a>
+                <a href="{{ route('home.index') }}" class="font-bold text-xl"><img src="{{ asset('img/logo.png') }}"
+                        alt="Logo" class="h-16 rounded-full"></a>
                 <div class="hidden md:flex space-x-6">
-                    <a href="#" class="hover:text-blue-200">Home</a>
-                    <a href="#" class="hover:text-blue-200">Programs</a>
-                    <a href="{{ route('form.create') }}" class="hover:text-blue-200">Admission</a>
+                    <a href="{{ route('home.index') }}"
+                        class="px-4 py-2 text-white hover:bg-blue-700 rounded-md transition-colors duration-300 ease-in-out {{ request()->routeIs('home.index') ? 'bg-blue-900 font-semibold' : '' }}">
+                        Home
+                    </a>
+
+                    <a href="{{ route('form.create') }}"
+                        class="px-4 py-2 text-white hover:bg-blue-700 rounded-md transition-colors duration-300 ease-in-out {{ request()->routeIs('form.create') ? 'bg-blue-900 font-semibold' : '' }}">
+                        Admission
+                    </a>
                 </div>
             </div>
         </div>

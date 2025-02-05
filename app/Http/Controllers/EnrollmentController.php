@@ -82,11 +82,33 @@ class EnrollmentController extends Controller
     public function destroy(Enrollment $enrollment)
     {
         try {
+            $user = auth()->user();
+            $studentName = $enrollment->personalInformation->last_name . ', ' .
+                $enrollment->personalInformation->first_name;
+
+            // Log the deletion
+            $logMessage = sprintf(
+                "[%s] Enrollment #%d (%s) deleted by %s\n",
+                now()->format('Y-m-d H:i:s'),
+                $enrollment->id,
+                $studentName,
+                $user->email
+            );
+
+            // Write to deleted.log
+            file_put_contents(
+                storage_path('logs/deleted.log'),
+                $logMessage,
+                FILE_APPEND
+            );
+
             $enrollment->delete();
 
-            return redirect()->route('enrollments.index')->with('success', 'Enrollment deleted successfully.');
+            return redirect()->route('enrollments.index')
+                ->with('success', 'Enrollment deleted successfully.');
         } catch (\Exception $e) {
-            return redirect()->route('enrollments.index')->with('error', 'An error occurred while deleting the enrollment.');
+            return redirect()->route('enrollments.index')
+                ->with('error', 'An error occurred while deleting the enrollment.');
         }
     }
 

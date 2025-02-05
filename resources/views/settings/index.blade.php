@@ -25,17 +25,17 @@
                 </a>
             </li>
             <li class="border-b border-gray-200">
-                <a href="#"
-                    class="block px-6 py-4 text-gray-700 hover:bg-gray-50 hover:text-blue-600 transition-colors duration-200">
-                    <i class="fas fa-envelope mr-3"></i>
-                    Change Email
-                </a>
-            </li>
-            <li class="border-b border-gray-200">
                 <a href="{{ route('logs') }}"
                     class="block px-6 py-4 text-gray-700 hover:bg-gray-50 hover:text-blue-600 transition-colors duration-200">
                     <i class="fas fa-paperclip mr-3"></i>
                     Laravel Logs
+                </a>
+            </li>
+            <li class="border-b border-gray-200">
+                <a href="{{ route('deleted-logs') }}"
+                    class="block px-6 py-4 text-gray-700 hover:bg-gray-50 hover:text-blue-600 transition-colors duration-200">
+                    <i class="fas fa-paperclip mr-3"></i>
+                    Deleted Logs
                 </a>
             </li>
             <li class="border-b border-gray-200">

@@ -117,7 +117,11 @@
     }
 
     function validateLearningPreferences() {
-        // Add specific validations for learning preferences
+        const preferences = document.querySelectorAll('input[name="distance_learning_preference[]"]:checked');
+        if (preferences.length === 0) {
+            showStepError(document.getElementById('step8'), 'Please select at least one learning preference');
+            return false;
+        }
         return true;
     }
 

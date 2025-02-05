@@ -74,10 +74,26 @@ class FormController extends Controller
                 // Handle requirements
                 $this->handleRequirements($request, $enrollment);
 
+                if ($request->ajax()) {
+                    return response()->json([
+                        'success' => true,
+                        'message' => 'Enrollment submitted successfully',
+                        'redirect' => route('form.thank-you')
+                    ]);
+                }
+
                 return redirect()->route('form.thank-you')->with('success', 'Enrollment created successfully.');
             });
         } catch (\Exception $e) {
             Log::error('Form submission error', ['error' => $e->getMessage()]);
+
+            if ($request->ajax()) {
+                return response()->json([
+                    'success' => false,
+                    'message' => 'An error occurred. Please try again.'
+                ], 500);
+            }
+
             return back()->withInput()->with('error', 'An error occurred. Please try again.');
         }
     }

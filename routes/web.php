@@ -34,22 +34,25 @@ Route::middleware(['auth', 'role:admin'])->group(function () {
     Route::post('/migrate-database', [DatabaseController::class, 'migrateDatabase'])->name('migrate.database');
 
     Route::get('/logs', [LogController::class, 'showLogs'])->name('logs');
+    Route::get('/deleted-logs', [LogController::class, 'showDeletedLogs'])->name('deleted-logs');
+    Route::post('/settings/clear-deleted-logs', [LogController::class, 'clearDeletedLogs'])->name('clear-deleted-logs');
 });
 
 Route::middleware(['auth', 'role:teacher'])->group(function () {
     Route::put('/enrollment-period/{enrollmentPeriod}', [EnrollmentPeriodController::class, 'update'])->name('enrollment-period.update');
 });
+
 Route::middleware(['auth', 'role:admin,teacher'])->group(function () {
     Route::get('/dashboard', [AdminController::class, 'index'])->name('admin.index');
 
     // Export route should come before other enrollment routes with parameters
     Route::get('/enrollments/export', [EnrollmentController::class, 'export'])->name('enrollments.export');
-    Route::get('/enrollments/pending', [EnrollmentController::class, 'pending'])->name('enrollments.pending');
-    Route::get('/enrollments/reviewed', [EnrollmentController::class, 'reviewed'])->name('enrollments.reviewed');
-    Route::post('/enrollments/{enrollment}/reviewed', [EnrollmentStatusController::class, 'markReviewed'])->name('enrollments.mark-reviewed');
-    Route::post('/enrollment/{enrollment}/rejected', [EnrollmentStatusController::class, 'markRejected'])->name('enrollments.mark-rejected');
-    Route::get('/enrollments/enrolled', [EnrollmentController::class, 'enrolled'])->name('enrollments.enrolled');
-    Route::get('/enrollments/rejected', [EnrollmentController::class, 'rejected'])->name('enrollments.rejected');
+    // Route::get('/enrollments/pending', [EnrollmentController::class, 'pending'])->name('enrollments.pending');
+    // Route::get('/enrollments/reviewed', [EnrollmentController::class, 'reviewed'])->name('enrollments.reviewed');
+    // Route::post('/enrollments/{enrollment}/reviewed', [EnrollmentStatusController::class, 'markReviewed'])->name('enrollments.mark-reviewed');
+    // Route::post('/enrollment/{enrollment}/rejected', [EnrollmentStatusController::class, 'markRejected'])->name('enrollments.mark-rejected');
+    // Route::get('/enrollments/enrolled', [EnrollmentController::class, 'enrolled'])->name('enrollments.enrolled');
+    // Route::get('/enrollments/rejected', [EnrollmentController::class, 'rejected'])->name('enrollments.rejected');
 
     Route::get('/settings', [SettingController::class, 'index'])->name('settings.index');
     Route::get('/settings/change-password', [SettingController::class, 'changePassword'])->name('settings.change-password');
@@ -59,7 +62,8 @@ Route::middleware(['auth', 'role:admin,teacher'])->group(function () {
     Route::get('/enrollments', [EnrollmentController::class, 'index'])->name('enrollments.index');
     Route::get('/enrollments/{enrollment}', [EnrollmentController::class, 'show'])->name('enrollments.show');
     Route::get('/enrollments/{enrollment}/edit', [EnrollmentController::class, 'edit'])->name('enrollments.edit');
-    Route::get('/enrollments/{enrollment}/reject', [EnrollmentController::class, 'reject'])->name('enrollments.reject');
+    Route::delete('/enrollments/{enrollment}', [EnrollmentController::class, 'destroy'])->name('enrollments.destroy');
+    // Route::get('/enrollments/{enrollment}/reject', [EnrollmentController::class, 'reject'])->name('enrollments.reject');
 
     Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 });

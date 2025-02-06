@@ -393,7 +393,7 @@
                                         </svg>
                                         <span class="font-medium">{{ $requirement->description }}</span>
                                     </div>
-                                    <a href="{{ $requirement->path }}" target="_blank"
+                                    <a href="{{ Storage::url($requirement->path) }}" target="_blank"
                                         class="inline-flex items-center px-3 py-1 bg-indigo-50 text-indigo-700 rounded-md hover:bg-indigo-100 transition-colors">
                                         <svg class="w-4 h-4 mr-1" fill="none" stroke="currentColor"
                                             viewBox="0 0 24 24">
@@ -405,6 +405,12 @@
                                         View
                                     </a>
                                 </div>
+                                @if (Str::endsWith($requirement->path, ['.jpg', '.jpeg', '.png', '.gif']))
+                                    <div class="mt-4">
+                                        <img src="{{ Storage::url($requirement->path) }}" alt="{{ $requirement->description }}"
+                                            class="max-w-full h-auto rounded-lg shadow-md">
+                                    </div>
+                                @endif
                             @endforeach
                         </div>
                     @else

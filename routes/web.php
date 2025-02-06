@@ -7,7 +7,6 @@ use App\Http\Controllers\EnrollmentPeriodController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\DatabaseController;
 use App\Http\Controllers\EnrollmentController;
-use App\Http\Controllers\EnrollmentStatusController;
 use App\Http\Controllers\ErrorController;
 use App\Http\Controllers\LogController;
 use App\Http\Controllers\SettingController;

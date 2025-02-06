@@ -6,6 +6,7 @@ use App\Exports\EnrollmentsExport;
 use App\Models\Enrollment;
 use App\Models\LearnerSenior;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Maatwebsite\Excel\Facades\Excel;
 
 class EnrollmentController extends Controller
@@ -68,21 +69,10 @@ class EnrollmentController extends Controller
         return view('enrollments.show', compact('enrollment'));
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(Enrollment $enrollment)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     */
     public function destroy(Enrollment $enrollment)
     {
         try {
-            $user = auth()->user();
+            $user = Auth::user();
             $studentName = $enrollment->personalInformation->last_name . ', ' .
                 $enrollment->personalInformation->first_name;
 

@@ -16,7 +16,6 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Storage;
-use thiagoalessio\TesseractOCR\TesseractOCR;
 
 class FormController extends Controller
 {
@@ -115,14 +114,6 @@ class FormController extends Controller
                     'path' => $path
                 ]);
                 $enrollment->requirements()->attach($requirement->id);
-
-                $uploadedText = $request->input("requirements.{$field}_ocr");
-                $sampleImagePath = public_path("img/sample-{$field}.img");
-                $sampleText = (new TesseractOCR($sampleImagePath))->run();
-
-                if (similar_text($uploadedText, $sampleText) < 80) {
-                    throw new \Exception("Uploaded {$description} does not match the sample.");
-                }
             }
         }
     }

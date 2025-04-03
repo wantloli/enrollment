@@ -7,7 +7,6 @@
                 class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500"
                 onchange="previewImage(this, 'birth_certificate_preview')">
             <img id="birth_certificate_preview" class="mt-2 h-40 w-full object-cover rounded-md" style="display:none;">
-            <input type="hidden" id="birth_certificate_ocr" name="requirements[birth_certificate_ocr]">
         </div>
         <div>
             <label for="grade_10_card" class="block text-sm font-medium text-gray-700">Grade 10 Card</label>
@@ -15,7 +14,6 @@
                 class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500"
                 onchange="previewImage(this, 'grade_10_card_preview')">
             <img id="grade_10_card_preview" class="mt-2 h-40 w-full object-cover rounded-md" style="display:none;">
-            <input type="hidden" id="grade_10_card_ocr" name="requirements[grade_10_card_ocr]">
         </div>
     </div>
     <div class="mt-8 flex justify-between">
@@ -30,7 +28,6 @@
     </div>
 </div>
 
-<script src="https://cdn.jsdelivr.net/npm/tesseract.js@2.1.1/dist/tesseract.min.js"></script>
 <script>
     function previewImage(input, previewId) {
         const preview = document.getElementById(previewId);
@@ -42,19 +39,6 @@
             reader.onload = function(e) {
                 preview.src = e.target.result;
                 preview.style.display = 'block';
-
-                Tesseract.recognize(
-                    e.target.result,
-                    'eng', {
-                        logger: m => console.log(m)
-                    }
-                ).then(({
-                    data: {
-                        text
-                    }
-                }) => {
-                    document.getElementById(previewId + '_ocr').value = text;
-                });
             }
 
             reader.readAsDataURL(file);

@@ -50,15 +50,37 @@ class FormController extends Controller
             // Create records in a transaction
             return DB::transaction(function () use ($validatedData, $request) {
                 // Create addresses
-                $homeAddress = Address::create($validatedData['home_address']);
-                $currentAddress = $validatedData['same_as_home'] ? $homeAddress : Address::create($validatedData['current_address']);
+                $homeAddress = Address::firstOrCreate($validatedData['home_address']);
+                $currentAddress = $validatedData['same_as_home']
+                    ? $homeAddress
+                    : Address::firstOrCreate($validatedData['current_address']);
 
                 // Rest of your code remains the same...
-                $personalInfo = $this->createPersonalInfo($validatedData, $homeAddress->id);
-                $parentInfo = ParentInformation::create($this->getParentData($validatedData));
-                $specialNeeds = $this->createSpecialNeeds($validatedData);
-                $learnerSenior = LearnerSenior::create($validatedData['learner_senior'] ?? []);
-                $returningLearner = ReturningLearner::create($validatedData['returning_learner'] ?? []);
+                $personalInfo = PersonalInformation::firstOrCreate([
+                    'birth_certificate_no' => $validatedData['birth_certificate_no'] ?? null,
+                    'last_name' => $validatedData['last_name'],
+                    'middle_name' => $validatedData['middle_name'],
+                    'first_name' => $validatedData['first_name'],
+                    'birth_date' => $validatedData['birth_date'],
+                ], [
+                    'age' => $validatedData['age'],
+                    'sex' => $validatedData['sex'],
+                    'birth_place' => $validatedData['birth_place'],
+                    'religion' => $validatedData['religion'],
+                    'mother_tongue' => $validatedData['mother_tongue'],
+                    'four_ps_household_number' => $validatedData['four_ps_household_number'] ?? null,
+                    'email' => $validatedData['email'], // Added email field
+                    'address_id' => $homeAddress->id,
+                ]);
+
+                $parentInfo = ParentInformation::firstOrCreate($this->getParentData($validatedData));
+                $specialNeeds = SpecialNeed::firstOrCreate([
+                    'type' => implode(',', $validatedData['special_needs']['type'] ?? []),
+                    'with_manifestations' => implode(',', $validatedData['special_needs']['with_manifestations'] ?? []),
+                    'is_have_pwd_id' => $validatedData['special_needs']['is_have_pwd_id'] ?? false,
+                ]);
+                $learnerSenior = LearnerSenior::firstOrCreate($validatedData['learner_senior'] ?? []);
+                $returningLearner = ReturningLearner::firstOrCreate($validatedData['returning_learner'] ?? []);
 
                 // Create enrollment with relationships
                 $enrollment = Enrollment::create([

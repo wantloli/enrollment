@@ -131,20 +131,55 @@
                         errorMessage.classList.toggle('hidden', this.checked);
                     }
                 });
-
-                // Form submission handler
-                submitButton.addEventListener('click', function(e) {
-                    if (!checkbox.checked) {
-                        e.preventDefault(); // Prevent submission if checkbox isn't checked
-                        if (errorMessage) {
-                            errorMessage.classList.remove('hidden');
-                        }
-                    }
-                });
             } else {
                 console.error('Checkbox or submit button not found!');
             }
         });
+
+        async function submitForm(e) {
+            e.preventDefault(); // Prevent default form submission
+
+            if (!validateStep(currentStep)) {
+                return;
+            }
+
+            const form = e.target;
+            const submitButton = form.querySelector('button[type="submit"]');
+            const formData = new FormData(form);
+
+            try {
+                submitButton.disabled = true;
+                submitButton.innerHTML = '<span class="spinner"></span> Submitting...';
+
+                const response = await fetch(form.action, {
+                    method: 'POST',
+                    body: formData,
+                    headers: {
+                        'X-Requested-With': 'XMLHttpRequest',
+                    }
+                });
+
+                const data = await response.json();
+
+                if (!response.ok) {
+                    throw new Error(data.message || 'Something went wrong');
+                }
+
+                if (data.errors) {
+                    Object.entries(data.errors).forEach(([field, errors]) => {
+                        errors.forEach(error => showToast(error));
+                    });
+                } else if (data.success) {
+                    showToast(data.message, 'success');
+                    window.location.href = data.redirect;
+                }
+            } catch (error) {
+                showToast(error.message);
+            } finally {
+                submitButton.disabled = false;
+                submitButton.innerHTML = 'Submit Enrollment';
+            }
+        }
     </script>
     <script>
         // Constants
@@ -278,50 +313,5 @@
             initializeFormHandlers();
             initializeCitySelection();
         });
-
-        async function submitForm(e) {
-            e.preventDefault();
-
-            if (!validateStep(currentStep)) {
-                return;
-            }
-
-            const form = e.target;
-            const submitButton = form.querySelector('button[type="submit"]');
-            const formData = new FormData(form);
-
-            try {
-                submitButton.disabled = true;
-                submitButton.innerHTML = '<span class="spinner"></span> Submitting...';
-
-                const response = await fetch(form.action, {
-                    method: 'POST',
-                    body: formData,
-                    headers: {
-                        'X-Requested-With': 'XMLHttpRequest',
-                    }
-                });
-
-                const data = await response.json();
-
-                if (!response.ok) {
-                    throw new Error(data.message || 'Something went wrong');
-                }
-
-                if (data.errors) {
-                    Object.entries(data.errors).forEach(([field, errors]) => {
-                        errors.forEach(error => showToast(error));
-                    });
-                } else if (data.success) {
-                    showToast(data.message, 'success');
-                    window.location.href = data.redirect;
-                }
-            } catch (error) {
-                showToast(error.message);
-            } finally {
-                submitButton.disabled = false;
-                submitButton.innerHTML = 'Submit Enrollment';
-            }
-        }
     </script>
 </x-layout>

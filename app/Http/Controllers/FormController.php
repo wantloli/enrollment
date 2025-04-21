@@ -69,7 +69,7 @@ class FormController extends Controller
                     'religion' => $validatedData['religion'],
                     'mother_tongue' => $validatedData['mother_tongue'],
                     'four_ps_household_number' => $validatedData['four_ps_household_number'] ?? null,
-                    'email' => $validatedData['email'], // Added email field
+                    'email' => $validatedData['email'], // Ensure email is passed here
                     'address_id' => $homeAddress->id,
                 ]);
 

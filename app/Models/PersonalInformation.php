@@ -24,6 +24,7 @@ class PersonalInformation extends Model
         'extension_name',
         'age',
         'sex',
+        'email',
         'birth_place',
         'birth_date',
         'religion',

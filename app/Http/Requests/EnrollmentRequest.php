@@ -41,6 +41,7 @@ class EnrollmentRequest extends FormRequest
             'religion' => 'required|string|max:255',
             'mother_tongue' => 'required|string|max:255',
             'four_ps_household_number' => 'nullable|string|max:255',
+            'email' => 'required|email|unique:personal_information,email',
 
             // Home address validation
             'home_address.house_no' => 'required|string|max:255',
@@ -59,7 +60,6 @@ class EnrollmentRequest extends FormRequest
             'current_address.barangay' => 'nullable|required_unless:same_as_home,true|string|max:255',
             'current_address.country' => 'nullable|required_unless:same_as_home,true|string|max:255',
             'current_address.zip_code' => 'nullable|required_unless:same_as_home,true|string|max:255',
-
 
             'same_as_home' => 'boolean',
 

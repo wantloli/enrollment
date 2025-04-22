@@ -64,7 +64,7 @@ class EnrollmentRequest extends FormRequest
             'same_as_home' => 'boolean',
 
             // Requirements
-            'requirements.birth_certificate' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
+            'requirements.birth_certificate' => 'required|file|mimes:jpeg,png,jpg,gif,webp,pdf|max:30720',
             'requirements.grade_10_card' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
 
             // Parent Information

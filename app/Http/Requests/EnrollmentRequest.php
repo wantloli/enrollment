@@ -65,7 +65,7 @@ class EnrollmentRequest extends FormRequest
 
             // Requirements
             'requirements.birth_certificate' => 'required|file|mimes:jpeg,png,jpg,gif,webp,pdf|max:30720',
-            'requirements.grade_10_card' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
+            'requirements.grade_10_card' => 'required|image|mimes:jpeg,png,jpg,gif,webp,pdf|max:30720',
 
             // Parent Information
             'father_last_name' => 'nullable|string|max:255',

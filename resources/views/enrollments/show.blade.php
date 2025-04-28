@@ -116,6 +116,10 @@
                             <p class="text-sm text-gray-600">Mother Tongue:</p>
                             <p class="font-medium">{{ $enrollment->personalInformation->mother_tongue }}</p>
                         </div>
+                        <div class="space-y-2 col-span-2">
+                            <p class="text-sm text-gray-600">Email:</p>
+                            <p class="font-medium">{{ $enrollment->personalInformation->email }}</p>
+                        </div>
                     </div>
                 @else
                     <p class="text-gray-500 italic">Personal information is not available.</p>
@@ -407,7 +411,8 @@
                                 </div>
                                 @if (Str::endsWith($requirement->path, ['.jpg', '.jpeg', '.png', '.gif']))
                                     <div class="mt-4">
-                                        <img src="{{ Storage::url($requirement->path) }}" alt="{{ $requirement->description }}"
+                                        <img src="{{ Storage::url($requirement->path) }}"
+                                            alt="{{ $requirement->description }}"
                                             class="max-w-full h-auto rounded-lg shadow-md">
                                     </div>
                                 @endif
